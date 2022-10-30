@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once "config.php";
+
+$db = new PDO("sqlite:" . Config::DATABASE);
 $invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,15 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$spassword = hash("sha512", $password) . hash("md5", strrev($password));
 
-	//$check = $Main->getDataKey($emailOrUsername);
+	$from = $db->query("SELECT email, username, password FROM users
+						 WHERE email='$emailOrUsername'
+						    OR username='$emailOrUsername';")->fetch(PDO::FETCH_ASSOC);
 
-	if ($check[1] !== $spassword) {
+	if ($from["password"] !== $spassword) {
 		$invalid = true;
 	} else {
 		$_SESSION["_user"] = array(
-			"displayName" => $check[2] == 2 ? $emailOrUsername : $check[0],
+			"displayName" => $from["username"],
 			"login" => true,
-			"__" => array()
+			"_" => array(
+				"uid" => $from["uid"]
+			)
 		);
 
 		$redir = isset($_POST["redir"]) ? $_POST["redir"] : "";

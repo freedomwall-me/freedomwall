@@ -4,8 +4,9 @@ session_start();
 $invalidUsername = false;
 $invalidEmail = false;
 
-require_once "classes/main.class.php";
-$Main = new Main;
+require_once "config.php";
+
+$db = new PDO("sqlite:" . Config::DATABASE);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = $_POST["username"];
@@ -14,11 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$spassword = hash("sha512", $password) . hash("md5", strrev($password));
 
-	$data1 = array($username, $spassword, 1);
-	$data2 = array($email, $spassword, 2);
-
-	$check1 = $Main->getDataKey($email);
-	$check2 = $Main->getDataKey($username);
+	$check1 = $db->query("SELECT username FROM users WHERE email='$email'")->fetch(PDO::FETCH_ASSOC)["username"];
+	$check2 = $db->query("SELECT email FROM users WHERE username='$username'")->fetch(PDO::FETCH_ASSOC)["email"];
 	$error = false;
 
 	if (!empty($check1)) {
@@ -32,8 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
 	if (!$error) {
-		$Main->insertKey($email, $data1);
-		$Main->insertKey($username, $data2);
+		$db->query(
+			"INSERT INTO users
+		 	 VALUES (
+			 	'$email', '$username', '$spassword', '" . bin2hex(openssl_random_pseudo_bytes(64)) . "'
+			 );"
+		);
 
 		header('Location: /login.php');
 	}
