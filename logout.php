@@ -1,13 +1,11 @@
 <?php
-	if ($_SERVER["REQUEST_METHOD"] != "POST")
-	{
-		echo "Unauthorized";
-		return;
-	}
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+	echo "Unauthorized";
+	return;
+}
 
-	session_start();
+session_start();
 
-	unset($_SESSION["_user"]);
+unset($_SESSION["_user"]);
 
-	header("Location: /index.php")
-?>
+header("Location: /index.php");
