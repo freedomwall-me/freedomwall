@@ -4,11 +4,23 @@ session_start();
 if (!isset($_SESSION["_user"]["login"]))
 	header("Location: /login.php?redir=create.php");
 
+require_once "config.php";
+
+$db = new PDO("sqlite:" . Config::DATABASE);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if ($_POST["status"] != "release") {
-		echo "Function not implemented";
-		return;
-	}
+	$db->query("INSERT INTO user_works
+				VALUES (
+					'" . $_SESSION["_"]["uid"] . "',
+					'" . $_POST["title"] . "',
+					'" . $_POST["tags"] . "',
+					'" . $_POST["body"] . "',
+					'" . $_POST["status"] . "',
+					'" . gmdate("ymd his A") . "'
+				);");
+
+	echo "Your story has been published.";
+	exit;
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<h1 class="mb-4">Create a short story</h1>
 
 		<form action="/create.php" method="post">
-			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title...">
+			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." required>
 			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
 
 			<textarea class="form-control" id="ss" name="body" placeholder="Type here"></textarea>
@@ -59,10 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					title: 'Email'
 				},
 			]
-		});
+		})
 
-		let input = document.querySelector('input[name=tags]');
-		new Tagify(input);
+		let input = document.querySelector('input[name=tags]')
+		new Tagify(input)
 	</script>
 </body>
 
