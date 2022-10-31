@@ -8,4 +8,4 @@ session_start();
 
 unset($_SESSION["_user"]);
 
-header("Location: /index.php");
+header("Location: /index");

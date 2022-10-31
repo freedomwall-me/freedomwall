@@ -30,14 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
 	if (!$error) {
-		$db->query(
+		$db->exec(
 			"INSERT INTO users
 		 	 VALUES (
 			 	'$email', '$username', '$spassword', '" . bin2hex(openssl_random_pseudo_bytes(64)) . "'
 			 );"
 		);
 
-		header('Location: /login.php');
+		header('Location: /login');
 	}
 }
 ?>
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="card-body p-4 p-md-5">
 						<h3 class="mb-4 pb-2 px-md-2">Create an account</h3>
 
-						<form class="px-md-2 needs-validation" action="/register.php" method="post" novalidate>
+						<form class="px-md-2 needs-validation" action="/register" method="post" novalidate>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="username">Username</label>
 								<input type="text" name="username" <?php echo 'class="form-control';

@@ -13,10 +13,10 @@
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto">
-				<?php $name = $_SESSION["_user"]["displayName"];
-				if (isset($name)) : ?>
+				<?php if (array_key_exists("_user", $_SESSION)) :
+					$name = $_SESSION["_user"]["displayName"]; ?>
 
-					<a href="/create.php" class="btn btn-outline-light">
+					<a href="/create" class="btn btn-outline-light">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 							<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
 						</svg>
@@ -28,15 +28,15 @@
 							Welcome, <?php echo $name ?>.
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="/profile.php">Profile</a>
-							<form action="/logout.php" method="post">
+							<a class="dropdown-item" href="/profile">Profile</a>
+							<form action="/logout" method="post">
 								<a class="dropdown-item" href="#" onclick="this.parentNode.submit()">Log out</a>
 							</form>
 						</div>
 					</div>
 				<?php else : ?>
-					<a href="/login.php" class="nav-item nav-link active">Log in</a>
-					<a href="/register.php" class="nav-item nav-link active">Register</a>
+					<a href="/login" class="nav-item nav-link active">Log in</a>
+					<a href="/register" class="nav-item nav-link active">Register</a>
 				<?php endif; ?>
 			</div>
 		</div>

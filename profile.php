@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["_user"]["login"]))
-	header("Location: /login.php?redir=profile.php");
+	header("Location: /login?redir=profile");
 
 require_once "config.php";
 
@@ -27,13 +27,21 @@ $db = new PDO("sqlite:" . Config::DATABASE);
 		<h2 class="mb-4">My works</h2>
 		<?php
 		$works = $db->query("SELECT * FROM user_works
-							  WHERE uid='" . $_SESSION["_user"]["_"]["uid"] . "'");
+							  WHERE uid='" . $_SESSION["_user"]["_"]["uid"] . "';")->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($works as $work) : ?>
 
 			<div class="card mb-2">
 				<div class="card-body">
 					<h5 class="card-title"><?php echo $work["title"]; ?></h5>
+					<?php if ($work["type"] == "draft") : ?>
+						<span class="badge text-bg-warning">Draft</span>
+					<?php endif; ?>
+
+					<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
+						<span class="badge text-bg-secondary"><?php echo $obj["value"]; ?></span>
+					<?php endforeach; ?>
+
 					<p class="card-text">
 						<?php
 						$body = $work["body"];

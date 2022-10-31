@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$spassword = hash("sha512", $password) . hash("md5", strrev($password));
 
-	$from = $db->query("SELECT email, username, password FROM users
+	$from = $db->query("SELECT email, username, uid, password FROM users
 						 WHERE email='$emailOrUsername'
 						    OR username='$emailOrUsername';")->fetch(PDO::FETCH_ASSOC);
 
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="card-body p-4 p-md-5">
 						<h3 class="mb-4 pb-2 px-md-2">Log in to your account</h3>
 
-						<form class="px-md-2" action="/login.php" method="post">
+						<form class="px-md-2" action="/login" method="post">
 							<div class="form-outline mb-4">
 								<label class="form-label" for="data">Email or username</label>
 								<input type="text" name="data" class="form-control" required>
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</div>
 							<div class="form-outline mb-4">
 								<label>
-									Not yet a member? <a href="/register.php">Register</a> now
+									Not yet a member? <a href="/register">Register</a> now
 								</label>
 							</div>
 							<?php if ($invalid) : ?>

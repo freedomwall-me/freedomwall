@@ -2,16 +2,16 @@
 session_start();
 
 if (!isset($_SESSION["_user"]["login"]))
-	header("Location: /login.php?redir=create.php");
+	header("Location: /login?redir=create");
 
 require_once "config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$db->query("INSERT INTO user_works
-				VALUES (
-					'" . $_SESSION["_"]["uid"] . "',
+	$db->exec("INSERT INTO user_works
+			   VALUES (
+					'" . $_SESSION["_user"]["_"]["uid"] . "',
 					'" . $_POST["title"] . "',
 					'" . $_POST["tags"] . "',
 					'" . $_POST["body"] . "',
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<div class="py-5 container">
 		<h1 class="mb-4">Create a short story</h1>
 
-		<form action="/create.php" method="post">
+		<form action="/create" method="post">
 			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." required>
 			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
 
