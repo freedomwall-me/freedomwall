@@ -1,2 +1,8 @@
 db/
+vendor/
+
 config.php
+
+composer.json
+composer.lock
+composer.phar
