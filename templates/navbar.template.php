@@ -13,8 +13,8 @@
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto">
-				<?php if (array_key_exists("_user", $_SESSION)) :
-					$name = $_SESSION["_user"]["displayName"]; ?>
+				<?php if (array_key_exists("user", $_SESSION)) :
+					$name = $_SESSION["user"]["displayName"]; ?>
 
 					<a href="/create" class="btn btn-outline-light">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">

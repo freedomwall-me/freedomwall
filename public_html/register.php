@@ -4,7 +4,8 @@ session_start();
 $invalidUsername = false;
 $invalidEmail = false;
 
-require_once "config.php";
+require_once "../config.php";
+require_once "../classes/guid.class.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 
@@ -13,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$password = $_POST["password"];
 	$email = $_POST["email"];
 
-	$spassword = hash("sha512", $password) . hash("md5", strrev($password));
+	$spassword = hash("sha512", $password);
 
 	$check1 = $db->query("SELECT username FROM users WHERE email='$email'")->fetch(PDO::FETCH_ASSOC)["username"];
 	$check2 = $db->query("SELECT email FROM users WHERE username='$username'")->fetch(PDO::FETCH_ASSOC)["email"];
@@ -33,7 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$db->exec(
 			"INSERT INTO users
 		 	 VALUES (
-			 	'$email', '$username', '$spassword', '" . bin2hex(openssl_random_pseudo_bytes(64)) . "'
+				'" . Guid::guidv4() . "',
+			 	'$email',
+				'$username',
+				'$spassword'
 			 );"
 		);
 
@@ -50,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "../templates/navbar.template.php"; ?>
 
 	<div class="container py-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">

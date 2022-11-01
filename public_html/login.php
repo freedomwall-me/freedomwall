@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "config.php";
+require_once "../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 $invalid = false;
@@ -10,24 +10,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$emailOrUsername = $_POST["data"];
 	$password = $_POST["password"];
 
-	$spassword = hash("sha512", $password) . hash("md5", strrev($password));
+	$spassword = hash("sha512", $password);
 
-	$from = $db->query("SELECT email, username, uid, password FROM users
-						 WHERE email='$emailOrUsername'
-						    OR username='$emailOrUsername';")->fetch(PDO::FETCH_ASSOC);
+	$from = $db->query(
+		"SELECT uid, email, username, password FROM users
+		 WHERE email='$emailOrUsername'
+		 OR username='$emailOrUsername';"
+	)->fetch(PDO::FETCH_ASSOC);
 
 	if ($from["password"] !== $spassword) {
 		$invalid = true;
 	} else {
-		$_SESSION["_user"] = array(
+		$_SESSION["user"] = array(
 			"displayName" => $from["username"],
-			"login" => true,
-			"_" => array(
-				"uid" => $from["uid"]
-			)
+			"uid" => $from["uid"]
 		);
 
-		$redir = isset($_POST["redir"]) ? $_POST["redir"] : "";
+		$redir = array_key_exists("redir", $_POST) ? $_POST["redir"] : "";
 		header("Location: /$redir");
 	}
 }
@@ -41,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "../templates/navbar.template.php"; ?>
 
 	<div class="container py-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">

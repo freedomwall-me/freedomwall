@@ -1,26 +1,35 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["_user"]["login"]))
+if (!array_key_exists("user", $_SESSION))
 	header("Location: /login?redir=create");
 
-require_once "config.php";
+require_once "../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
+$published = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$db->exec("INSERT INTO user_works
-			   VALUES (
-					'" . $_SESSION["_user"]["_"]["uid"] . "',
-					'" . $_POST["title"] . "',
-					'" . $_POST["tags"] . "',
-					'" . $_POST["body"] . "',
-					'" . $_POST["status"] . "',
-					'" . gmdate("ymd his A") . "'
-				);");
+	$db->exec(
+		"INSERT INTO user_works (
+			uid,
+			title,
+			tags,
+			body,
+			type,
+			published_date
+		 )
+		 VALUES (
+			'" . $_SESSION["user"]["uid"] . "',
+			'" . $_POST["title"] . "',
+			'" . $_POST["tags"] . "',
+			'" . $_POST["body"] . "',
+			'" . $_POST["type"] . "',
+			'" . gmdate("ymd his A") . "'
+		 );"
+	);
 
-	echo "Your story has been published.";
-	exit;
+	$published = true;
 }
 ?>
 <!DOCTYPE html>
@@ -34,20 +43,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "../templates/navbar.template.php"; ?>
 
 	<div class="py-5 container">
 		<h1 class="mb-4">Create a short story</h1>
 
 		<form action="/create" method="post">
+			<?php if ($published) : ?>
+				<div class="alert alert-success alert-dismissible fade show form-outline mb-4">
+					Your story has been published.
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				</div>
+			<?php endif; ?>
+
 			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." required>
 			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
 
 			<textarea class="form-control" id="ss" name="body" placeholder="Type here"></textarea>
 
 			<div class="mt-3">
-				<button type="submit" class="btn btn-success btn-lg" name="status" value="release">Publish</button>
-				<button type="submit" class="btn btn-outline-success btn-lg" name="status" value="draft">Save as draft</button>
+				<button type="submit" class="btn btn-success btn-lg" name="type" value="release">Publish</button>
+				<button type="submit" class="btn btn-outline-success btn-lg" name="type" value="draft">Save as draft</button>
 			</div>
 		</form>
 	</div>

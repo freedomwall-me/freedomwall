@@ -1,12 +1,31 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["_user"]["login"]))
+if (!array_key_exists("user", $_SESSION))
 	header("Location: /login?redir=profile");
 
-require_once "config.php";
+require_once "../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$operation = $_POST["operation"];
+
+	if ($operation == "delete") {
+		$id = $_POST["id"];
+		$currentUid = $_SESSION["user"]["uid"];
+		$creatorUid = $db->query(
+			"SELECT uid FROM user_works
+			 WHERE id='$id';"
+		)->fetch(PDO::FETCH_ASSOC)["uid"];
+
+		if ($creatorUid !== $currentUid) {
+			http_response_code(403);
+			include_once "errors/403.php";
+			die;
+		}
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,17 +36,17 @@ $db = new PDO("sqlite:" . Config::DATABASE);
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "../templates/navbar.template.php"; ?>
 
 	<div class="py-5 container">
 		<h1 class="mb-4">
-			<?php echo $_SESSION["_user"]["displayName"]; ?>
+			<?php echo $_SESSION["user"]["displayName"]; ?>
 		</h1>
 
 		<h2 class="mb-4">My works</h2>
 		<?php
 		$works = $db->query("SELECT * FROM user_works
-							  WHERE uid='" . $_SESSION["_user"]["_"]["uid"] . "';")->fetchAll(PDO::FETCH_ASSOC);
+							 WHERE uid='" . $_SESSION["user"]["uid"] . "';")->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($works as $work) : ?>
 
