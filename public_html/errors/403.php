@@ -10,7 +10,7 @@
 <body>
 	<?php include "../templates/navbar.template.php"; ?>
 
-	<div class="py-5 container">
+	<div class="my-5 container">
 		<h1>Back off!</h1>
 
 		<p>You don't have access to this resource. Try again with another account.</p>

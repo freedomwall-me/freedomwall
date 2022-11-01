@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 	<?php include "../templates/navbar.template.php"; ?>
 
-	<div class="py-5 container">
+	<div class="my-5 container">
 		<h1 class="mb-4">Create a short story</h1>
 
 		<form action="/create" method="post">

@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 	<?php include "../templates/navbar.template.php"; ?>
 
-	<div class="container py-5 h-100">
+	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-lg-8 col-xl-6">
 				<div class="card rounded-3">
@@ -57,12 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="form-outline mb-4">
 								<label class="form-label" for="password">Password</label>
 								<input type="password" name="password" class="form-control" required>
-							</div>
-							<div class="form-check mb-2">
-								<input class="form-check-input" name="rememberMe" type="checkbox">
-								<label class="form-check-label" for="rememberMe">
-									Remember me for 30 days
-								</label>
 							</div>
 							<div class="form-outline mb-4">
 								<label>

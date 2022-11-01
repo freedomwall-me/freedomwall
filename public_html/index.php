@@ -19,7 +19,7 @@
 <body>
 	<?php include "../templates/navbar.template.php"; ?>
 
-	<div class="py-5 container">
+	<div class="my-5 container">
 		<h1>Welcome to the Global Repository of Short Stories</h1>
 
 		<p class="lead">

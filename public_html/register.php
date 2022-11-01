@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 	<?php include "../templates/navbar.template.php"; ?>
 
-	<div class="container py-5 h-100">
+	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-lg-8 col-xl-6">
 				<div class="card rounded-3">
