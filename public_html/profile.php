@@ -4,7 +4,7 @@ session_start();
 if (!array_key_exists("user", $_SESSION))
 	header("Location: /login?redir=profile");
 
-require_once "../config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<h1 class="mb-4">
@@ -93,10 +93,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div>
 						<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
 							<div class="float-end btn-group">
-								<?php include "../templates/workConfig.template.php"; ?>
+								<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/workConfig.template.php"; ?>
 							</div>
 						<?php endif; ?>
-						<a class="card-title text-reset text-decoration-none h5" href="/works?id=<?= $work["rowid"] ?>"><?= $work["title"] ?></a>
+						<a class="card-title text-reset text-decoration-none h5" href="/works/<?= $work["rowid"] ?>"><?= $work["title"] ?></a>
 					</div>
 					<?php if ($work["type"] == "draft") : ?>
 						<span class="badge text-bg-warning">Draft</span>

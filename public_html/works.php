@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "../config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
 
 $withId = false;
 $db = new PDO("sqlite:" . Config::DATABASE);
@@ -14,9 +14,15 @@ if (array_key_exists("id", $_GET)) {
 		 WHERE rowid='$id';"
 	)->fetch(PDO::FETCH_ASSOC);
 
-	if (!$work || ($work["type"] == "draft" && $work["uid"] !== $_SESSION["user"]["uid"])) {
+	if (!$work) {
 		http_response_code(404);
 		include_once "errors/404.php";
+		die;
+	}
+
+	if ($work["type"] == "draft" && $work["uid"] !== $_SESSION["user"]["uid"]) {
+		http_response_code(403);
+		include_once "errors/403.php";
 		die;
 	}
 
@@ -35,7 +41,7 @@ if (array_key_exists("id", $_GET)) {
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<?php if ($withId) : ?>
@@ -44,7 +50,7 @@ if (array_key_exists("id", $_GET)) {
 					<div>
 						<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
 							<div class="float-end btn-group">
-								<?php include "../templates/workConfig.template.php"; ?>
+								<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/workConfig.template.php"; ?>
 							</div>
 						<?php endif; ?>
 						<h1><?= $work["title"] ?></h1>

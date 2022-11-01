@@ -6,6 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 session_start();
 
-unset($_SESSION["_user"]);
+unset($_SESSION["user"]);
 
 header("Location: /index");

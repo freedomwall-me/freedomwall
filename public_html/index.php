@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<h1>Welcome to the Global Repository of Short Stories</h1>

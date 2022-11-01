@@ -7,6 +7,7 @@
 </button>
 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
     <?php if ($work["type"] == "draft") : ?>
+        <a class="dropdown-item" href="/create?edit=<?= $id ?>">Edit</a>
         <form action="/profile" method="post">
             <input type="hidden" name="operation" value="publish">
             <input type="hidden" name="id" value="<?= $id ?>">

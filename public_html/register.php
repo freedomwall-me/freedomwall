@@ -4,8 +4,8 @@ session_start();
 $invalidUsername = false;
 $invalidEmail = false;
 
-require_once "../config.php";
-require_once "../classes/guid.class.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../classes/guid.class.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<form class="px-md-2 needs-validation" action="/register" method="post" novalidate>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="username">Username</label>
-								<input type="text" name="username" class="form-control <?php if ($invalidEmail) echo "is-invalid" ?>" required>
+								<input type="text" name="username" class="form-control <?php if ($invalidUsername) echo "is-invalid" ?>" required>
 								<div class="invalid-feedback">
 									<?= $invalidUsername ? 'This username has been taken.' : 'Please fill out this field.' ?>
 								</div>
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									Passwords do not match.
 								</div>
 							</div>
-							<input type="submit" class="btn btn-success">
+							<input type="submit" class="btn btn-success" value="Register">
 						</form>
 					</div>
 				</div>

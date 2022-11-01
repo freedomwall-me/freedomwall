@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "../config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 $invalid = false;
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<?php if (isset($_GET["redir"])) : ?>
 								<input type="hidden" name="redir" value="<?= $_GET["redir"] ?>">
 							<?php endif; ?>
-							<input type="submit" class="btn btn-success">
+							<input type="submit" class="btn btn-success" value="Log in">
 						</form>
 					</div>
 				</div>

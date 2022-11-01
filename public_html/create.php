@@ -4,12 +4,24 @@ session_start();
 if (!array_key_exists("user", $_SESSION))
 	header("Location: /login?redir=create");
 
-require_once "../config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
 
 $db = new PDO("sqlite:" . Config::DATABASE);
 $published = false;
+$editing = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["editing"] == "true") {
+        $db->exec(
+			"UPDATE user_works
+			 SET title=,
+			     tags=,
+				 body=
+				 type=
+			WHERE rowid=;"
+		)
+	}
+
 	$db->exec(
 		"INSERT INTO user_works (
 			uid,
@@ -31,6 +43,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$published = true;
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+	$editing = true;
+	$id = $_GET["edit"];
+	$work = $db->query(
+		"SELECT * FROM user_works
+		 WHERE rowid='$id';"
+	)->fetch(PDO::FETCH_ASSOC);
+
+	if ($work["uid"] !== $_SESSION["user"]["uid"] || $work["type"] != "draft") {
+		http_response_code(403);
+		include_once "errors/403.php";
+		die;
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,10 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include "../templates/navbar.template.php"; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
-		<h1 class="mb-4">Create a short story</h1>
+		<h1 class="mb-4">
+			<?php if ($editing) : ?>
+				Edit your work
+			<?php else : ?>
+				Create a short story
+			<?php endif; ?>
+		</h1>
 
 		<form action="/create" method="post">
 			<?php if ($published) : ?>
@@ -56,12 +89,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 			<?php endif; ?>
 
-			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." required>
-			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
+			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." <?php if ($editing) : ?> value="<?= $work["title"] ?>" <?php endif; ?> required>
+			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" <?php if ($editing) : ?> value="<?= implode(",", array_map(fn ($value) => $value["value"], json_decode($work["tags"], true))) /* wtf */ ?>" <?php endif; ?> data-role="tagsinput">
 
-			<textarea class="form-control" id="ss" name="body" placeholder="Type here"></textarea>
+			<textarea class="form-control" id="ss" name="body" placeholder="Type here">
+				<?php if ($editing)
+					echo $work["body"] ?>
+			</textarea>
 
 			<div class="mt-3">
+				<?php if ($editing) : ?>
+					<input type="hidden" name="editing" value="true">
+					<input type="hidden" name="id" value="<?= $_GET["edit"] ?>">
+				<?php endif; ?>
 				<button type="submit" class="btn btn-success btn-lg" name="type" value="release">Publish</button>
 				<button type="submit" class="btn btn-outline-success btn-lg" name="type" value="draft">Save as draft</button>
 			</div>
@@ -69,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/@yaireo/tagify"></script>
-	<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+	<script src="https://unpkg.com/@yaireo/tagify@4.16.4/dist/tagify.min.js"></script>
+	<script src="https://unpkg.com/@yaireo/tagify@4.16.4/dist/tagify.polyfills.min.js"></script>
 	<script>
 		tinymce.init({
 			selector: '#ss',
