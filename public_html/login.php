@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								</div>
 							<?php endif; ?>
 							<?php if (isset($_GET["redir"])) : ?>
-								<input type="hidden" name="redir" value=<?php echo '"' . $_GET["redir"] . '"' ?>>
+								<input type="hidden" name="redir" value="<?= $_GET["redir"] ?>">
 							<?php endif; ?>
 							<input type="submit" class="btn btn-success">
 						</form>

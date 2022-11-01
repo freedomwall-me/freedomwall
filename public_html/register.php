@@ -66,20 +66,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<form class="px-md-2 needs-validation" action="/register" method="post" novalidate>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="username">Username</label>
-								<input type="text" name="username" <?php echo 'class="form-control';
-																	if ($invalidUsername) echo ' is-invalid';
-																	echo '"' ?> required>
+								<input type="text" name="username" class="form-control <?php if ($invalidEmail) echo "is-invalid" ?>" required>
 								<div class="invalid-feedback">
-									<?php echo ($invalidUsername ? 'This username has been taken.' : 'Please fill out this field.') ?>
+									<?= $invalidUsername ? 'This username has been taken.' : 'Please fill out this field.' ?>
 								</div>
 							</div>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="email">Email</label>
-								<input type="email" name="email" <?php echo 'class="form-control';
-																	if ($invalidEmail) echo ' is-invalid';
-																	echo '"' ?> required>
+								<input type="email" name="email" class="form-control <?php if ($invalidEmail) echo "is-invalid" ?>" required>
 								<div class="invalid-feedback">
-									<?php echo ($invalidEmail ? 'This email is already being used by another account.' : 'Please fill out this field.') ?>
+									<?= $invalidEmail ? 'This email is already being used by another account.' : 'Please fill out this field.' ?>
 								</div>
 							</div>
 							<div class="form-outline mb-4">

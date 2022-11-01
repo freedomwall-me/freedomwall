@@ -56,7 +56,7 @@
 		<div class="row">
 			<div class="col-6 border-end">
 				<h2>Start browsing works tailored specifically for you</h2>
-				<a class="btn btn-success btn-lg" href="#">Browse</a>
+				<a class="btn btn-success btn-lg" href="/works">Browse</a>
 			</div>
 			<div class="col-6">
 				<h2>Or, create one yourself</h2>

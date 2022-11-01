@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$currentUid = $_SESSION["user"]["uid"];
 		$creatorUid = $db->query(
 			"SELECT uid FROM user_works
-			 WHERE id='$id';"
+			 WHERE rowid='$id';"
 		)->fetch(PDO::FETCH_ASSOC)["uid"];
 
 		if ($creatorUid !== $currentUid) {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<div class="py-5 container">
 		<h1 class="mb-4">
-			<?php echo $_SESSION["user"]["displayName"]; ?>
+			<?= $_SESSION["user"]["displayName"] ?>
 		</h1>
 
 		<h2 class="mb-4">My works</h2>
@@ -52,23 +52,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			<div class="card mb-2">
 				<div class="card-body">
-					<h5 class="card-title"><?php echo $work["title"]; ?></h5>
+					<h5 class="card-title"><?= $work["title"]; ?></h5>
 					<?php if ($work["type"] == "draft") : ?>
 						<span class="badge text-bg-warning">Draft</span>
 					<?php endif; ?>
 
 					<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
-						<span class="badge text-bg-secondary"><?php echo $obj["value"]; ?></span>
+						<span class="badge text-bg-secondary"><?= $obj["value"]; ?></span>
 					<?php endforeach; ?>
 
 					<p class="card-text">
-						<?php
-						$body = $work["body"];
-						if (strlen($body) > 200)
-							$body = substr($body, 0, 200) . "...";
-
-						echo $body;
-						?>
+						<?= $work["body"] ?>
 					</p>
 				</div>
 			</div>
