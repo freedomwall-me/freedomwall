@@ -28,10 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			"uid" => $from["uid"]
 		);
 
-		if (array_key_exists("redir", $_POST)) {
-			$ref = $_POST['redir'];
-			header("Location: /$ref");
-		}
+		$ref = $_POST["redir"] ?? "";
+
+		header("Location: /$ref");
 	}
 }
 ?>
@@ -39,10 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-	<?php require_once "templates/head.template.php" ?>
+	<?php require_once "public_html/templates/head.template.php" ?>
 </head>
+
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "public_html/templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">
@@ -52,6 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<h3 class="mb-4 pb-2 px-md-2">Log in to your account</h3>
 
 						<form class="px-md-2" action="/login" method="post">
+							<?php if ($invalid) : ?>
+								<div class="alert alert-danger alert-dismissible fade show form-outline mb-4">
+									Please double-check your data. Your username or password might be incorrect.
+									<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+								</div>
+							<?php endif; ?>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="data">Email or username</label>
 								<input type="text" name="data" class="form-control" required>
@@ -65,12 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									Not yet a member? <a href="/register">Register</a> now
 								</label>
 							</div>
-							<?php if ($invalid) : ?>
-								<div class="alert alert-danger alert-dismissible fade show form-outline mb-4">
-									Please double-check your data. Your username or password might be incorrect.
-									<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-								</div>
-							<?php endif; ?>
 							<?php if (isset($_GET["redir"])) : ?>
 								<input type="hidden" name="redir" value="<?= $_GET["redir"] ?>">
 							<?php endif; ?>

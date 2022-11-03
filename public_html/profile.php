@@ -1,26 +1,14 @@
 <?php
 session_start();
 
-if (!array_key_exists("user", $_SESSION) && !array_key_exists("user", $_GET))
+if (!array_key_exists("user", $_SESSION))
 	header("Location: /login?redir=profile");
 
-$uid = $_GET["user"];
-
-if ($_SERVER["REQUEST_METHOD"] == "GET" && !array_key_exists("user", $_GET))
-	header("Location: /profile/" . $uid);
+$uid = $_SESSION["user"]["uid"];
 
 require_once "classes/dbh.class.php";
 
 $db = Database::getDatabase();
-
-$stmt = $db->prepare(
-	"SELECT * FROM users
-	 WHERE uid = :uid;"
-);
-
-$stmt->execute(["uid" => $uid]);
-
-$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$operation = $_POST["operation"];
@@ -38,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if ($creatorUid !== $currentUid) {
 		http_response_code(403);
-		include_once "errors/403.php";
+		include_once "public_html/errors/403.php";
 		die;
 	}
 
@@ -70,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			break;
 		default:
 			http_response_code(404);
-			include_once "errors/404.php";
+			include_once "public_html/errors/404.php";
 			die;
 	}
 
@@ -140,65 +128,50 @@ if ($currentPage !== $numberOfPages) {
 <html>
 
 <head>
-	<?php require_once "templates/head.template.php" ?>
+	<?php require_once "public_html/templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "public_html/templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
-		<h1 class="mb-4">
-			<?= $userInfo["username"] ?>
-		</h1>
-
 		<div class="page-header mb-4">
-			<h2 class="float-start me-3">
-				<?php if ($userInfo["uid"] === $_SESSION["user"]["uid"]) : ?>
-					My works
-				<?php else : ?>
-					<?= $userInfo["username"] ?>'s works
-				<?php endif; ?>
-			</h2>
-			<?php if ($userInfo["uid"] === $_SESSION["user"]["uid"]) : ?>
-				<div class="btn-toolbar">
-					<a href="/create" class="btn btn-outline-success">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-							<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-						</svg>
-						Create
-					</a>
-				</div>
-			<?php endif; ?>
+			<h1 class="float-start me-3">
+				My walls
+			</h1>
+			<div class="btn-toolbar">
+				<a href="/create" class="btn btn-outline-success">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+					</svg>
+					Create
+				</a>
+			</div>
 		</div>
 		<?php foreach ($works as $work) : ?>
-			<?php if (
-				$work["type"] == "draft" && $_SESSION["user"]["uid"] === $work["uid"] ||
-				$work["type"] != "draft"
-			) : ?>
-				<div class="card mb-2">
-					<div class="card-body">
-						<div>
-							<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
-								<div class="float-end btn-group">
-									<?php include "templates/workConfig.template.php"; ?>
-								</div>
-							<?php endif; ?>
-							<a class="card-title text-reset text-decoration-none h5" href="/works/<?= $work["rowid"] ?>"><?= $work["title"] ?></a>
-						</div>
-						<?php if ($work["type"] == "draft") : ?>
-							<span class="badge text-bg-warning">Draft</span>
+			<div class="card mb-2">
+				<div class="card-body">
+					<div>
+						<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
+							<div class="float-end btn-group">
+								<?php include "public_html/templates/workConfig.template.php"; ?>
+							</div>
 						<?php endif; ?>
-
-						<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
-							<span class="badge text-bg-secondary"><?= $obj["value"]; ?></span>
-						<?php endforeach; ?>
-
-						<p class="card-text">
-							<?= $work["body"] ?>
-						</p>
+						<a class="card-title text-reset text-decoration-none h5" href="/walls/<?= $work["rowid"] ?>"><?= $work["title"] ?></a>
 					</div>
+					<?php if ($work["type"] == "draft") : ?>
+						<span class="badge text-bg-warning">Draft</span>
+					<?php endif; ?>
+
+					<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
+						<span class="badge text-bg-secondary"><?= $obj["value"]; ?></span>
+					<?php endforeach; ?>
+
+					<p class="card-text">
+						<?= $work["body"] ?>
+					</p>
 				</div>
-			<?php endif; ?>
+			</div>
 		<?php endforeach; ?>
 		<nav>
 			<ul class="pagination justify-content-center mt-4">

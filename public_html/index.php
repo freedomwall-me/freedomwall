@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<?php require_once "templates/head.template.php" ?>
+	<?php require_once "public_html/templates/head.template.php" ?>
 	<style>
 		.drk {
 			filter: brightness(65%);
@@ -16,49 +16,28 @@
 </head>
 
 <body>
-	<?php include "templates/navbar.template.php"; ?>
+	<?php include "public_html/templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
-		<h1>Welcome to the Global Repository of Short Stories</h1>
+		<h1>Welcome to the <span style="font-family: Separat;">freedomwall</span></h1>
 
 		<p class="lead">
-			The GRSS is an initiative that promotes free and accessible reading material for everyone. We believe that electronic written works should never be locked behind paywalls. Users can freely read and create their own short stories for everybody else to read, free of charge.
+			<span style="font-family: Separat;">freedomwall.me</span> is an initiative that promotes personal freedom.
+			We believe that freedom should never be locked behind paywalls. Users can freely (free, as in beer and freedom)
+			read and create their own freedom walls for everybody else to read, free of charge.
+		</p>
+		<p class="lead">
+			Notice how many times we've mentioned "free" here? That's how enthusiastic we are about you and your freedom.
 		</p>
 
-		<div id="imageSlides" class="carousel slide mt-4 mb-4" data-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="/assets/img/slide1.jpg" class="d-block w-100 rounded drk" alt="Open book being read by a person">
-					<div class="carousel-caption">
-						<h5>Access your favorite reads at your fingertips</h5>
-						<p>Read your favorite pieces right here, without the hassle of going out and buying physical copies of them. Downloading is an option too, if there's a need of reading offline.</p>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="/assets/img/slide2.jpg" class="d-block w-100 rounded drk" alt="Seated woman reading a book">
-					<div class="carousel-caption">
-						<h5>Express yourself</h5>
-						<p>Write your own short stories to be seen by the whole wide world. Express your imagination, your hatred, your happiness, all your emotions.</p>
-					</div>
-				</div>
-			</div>
-			<button class="carousel-control-prev" type="button" data-bs-target="#imageSlides" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#imageSlides" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
-		</div>
-
+		<h2>Get started</h2>
 		<div class="row">
 			<div class="col-6 border-end">
-				<h2>Start browsing works tailored specifically for you</h2>
-				<a class="btn btn-success btn-lg" href="/works">Browse</a>
+				<h4>Start browsing walls made by other users</h4>
+				<a class="btn btn-success btn-lg" href="/walls">Browse</a>
 			</div>
 			<div class="col-6">
-				<h2>Or, create one yourself</h2>
+				<h4>Or, create one yourself</h4>
 				<a class="btn btn-success btn-lg" href="/create">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
