@@ -7,40 +7,40 @@ $withId = false;
 $db = Database::getDatabase();
 
 if (array_key_exists("id", $_GET)) {
-	$withId = true;
-	$currentUid = $_SESSION["user"]["uid"];
+    $withId = true;
+    $currentUid = $_SESSION["user"]["uid"];
 
-	$stmt = $db->prepare(
-		"SELECT * FROM user_works
+    $stmt = $db->prepare(
+        "SELECT * FROM user_works
 		 WHERE rowid = :rowid;"
-	);
+    );
 
-	$stmt->execute(["rowid" => $_GET["id"]]);
+    $stmt->execute(["rowid" => $_GET["id"]]);
 
-	$work = $stmt->fetch(PDO::FETCH_ASSOC);
+    $work = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if (!$work) {
-		http_response_code(404);
-		include_once "errors/404.php";
-		die;
-	}
+    if (!$work) {
+        http_response_code(404);
+        include_once "errors/404.php";
+        die;
+    }
 
-	if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
-		http_response_code(403);
-		include_once "errors/403.php";
-		die;
-	}
+    if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
+        http_response_code(403);
+        include_once "errors/403.php";
+        die;
+    }
 
-	$stmt = $db->prepare(
-		"SELECT username FROM users
+    $stmt = $db->prepare(
+        "SELECT username FROM users
 		 WHERE uid = :uid;"
-	);
+    );
 
-	$stmt->execute(["uid" => $currentUid]);
+    $stmt->execute(["uid" => $currentUid]);
 
-	$author = $stmt->fetchColumn();
-	$publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
-		->format("F j, Y g:i:s A");
+    $author = $stmt->fetchColumn();
+    $publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
+        ->format("F j, Y g:i:s A");
 }
 ?>
 <!DOCTYPE html>

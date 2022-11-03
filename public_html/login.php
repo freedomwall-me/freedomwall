@@ -7,32 +7,32 @@ $db = Database::getDatabase();
 $invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$data = $_POST["data"];
-	$password = hash("sha512", $_POST["password"]);
+    $data = $_POST["data"];
+    $password = hash("sha512", $_POST["password"]);
 
-	$stmt = $db->prepare(
-		"SELECT * FROM users
+    $stmt = $db->prepare(
+        "SELECT * FROM users
 		 WHERE email = :email
 		 OR username = :username;"
-	);
+    );
 
-	$stmt->execute(["email" => $data, "username" => $data]);
+    $stmt->execute(["email" => $data, "username" => $data]);
 
-	$from = $stmt->fetch(PDO::FETCH_ASSOC);
+    $from = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if ($from["password"] !== $password) {
-		$invalid = true;
-	} else {
-		$_SESSION["user"] = array(
-			"displayName" => $from["username"],
-			"uid" => $from["uid"]
-		);
+    if ($from["password"] !== $password) {
+        $invalid = true;
+    } else {
+        $_SESSION["user"] = array(
+            "displayName" => $from["username"],
+            "uid" => $from["uid"]
+        );
 
-		if (array_key_exists("redir", $_POST)) {
-			$ref = $_POST['redir'];
-			header("Location: /$ref");
-		}
-	}
+        if (array_key_exists("redir", $_POST)) {
+            $ref = $_POST['redir'];
+            header("Location: /$ref");
+        }
+    }
 }
 ?>
 <!DOCTYPE html>

@@ -1,20 +1,22 @@
 <?php
 session_start();
 
-if (!array_key_exists("user", $_SESSION) && !array_key_exists("user", $_GET))
-	header("Location: /login?redir=profile");
+if (!array_key_exists("user", $_SESSION) && !array_key_exists("user", $_GET)) {
+    header("Location: /login?redir=profile");
+}
 
 $uid = $_GET["user"];
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && !array_key_exists("user", $_GET))
-	header("Location: /profile/" . $uid);
+if ($_SERVER["REQUEST_METHOD"] == "GET" && !array_key_exists("user", $_GET)) {
+    header("Location: /profile/" . $uid);
+}
 
 require_once "classes/dbh.class.php";
 
 $db = Database::getDatabase();
 
 $stmt = $db->prepare(
-	"SELECT * FROM users
+    "SELECT * FROM users
 	 WHERE uid = :uid;"
 );
 
@@ -23,62 +25,62 @@ $stmt->execute(["uid" => $uid]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$operation = $_POST["operation"];
-	$id = $_POST["id"];
+    $operation = $_POST["operation"];
+    $id = $_POST["id"];
 
-	$stmt = $db->prepare(
-		"SELECT uid FROM user_works
+    $stmt = $db->prepare(
+        "SELECT uid FROM user_works
 		 WHERE rowid = :rowid;"
-	);
+    );
 
-	$stmt->execute(["rowid" => $id]);
+    $stmt->execute(["rowid" => $id]);
 
-	$currentUid = $_SESSION["user"]["uid"];
-	$creatorUid = $stmt->fetchColumn();
+    $currentUid = $_SESSION["user"]["uid"];
+    $creatorUid = $stmt->fetchColumn();
 
-	if ($creatorUid !== $currentUid) {
-		http_response_code(403);
-		include_once "errors/403.php";
-		die;
-	}
+    if ($creatorUid !== $currentUid) {
+        http_response_code(403);
+        include_once "errors/403.php";
+        die;
+    }
 
-	switch ($operation) {
-		case "delete":
-			$stmt = $db->prepare(
-				"DELETE FROM user_works
+    switch ($operation) {
+        case "delete":
+            $stmt = $db->prepare(
+                "DELETE FROM user_works
 				 WHERE rowid = :rowid;"
-			);
+            );
 
-			break;
+            break;
 
-		case "publish":
-			$stmt = $db->prepare(
-				"UPDATE user_works
+        case "publish":
+            $stmt = $db->prepare(
+                "UPDATE user_works
 				 SET type = 'release'
 				 WHERE rowid = :rowid;"
-			);
+            );
 
-			break;
+            break;
 
-		case "unpublish":
-			$stmt = $db->prepare(
-				"UPDATE user_works
+        case "unpublish":
+            $stmt = $db->prepare(
+                "UPDATE user_works
 				 SET type = 'draft'
 				 WHERE rowid = :rowid;"
-			);
+            );
 
-			break;
-		default:
-			http_response_code(404);
-			include_once "errors/404.php";
-			die;
-	}
+            break;
+        default:
+            http_response_code(404);
+            include_once "errors/404.php";
+            die;
+    }
 
-	$stmt->execute(["rowid" => $id]);
+    $stmt->execute(["rowid" => $id]);
 }
 
 $stmt = $db->prepare(
-	"SELECT COUNT(*) FROM user_works
+    "SELECT COUNT(*) FROM user_works
 	 WHERE uid = :uid;"
 );
 
@@ -88,24 +90,25 @@ $worksPerPage = intval($_GET["show"] ?? "10");
 $numberOfWorks = $stmt->fetchColumn();
 $numberOfPages = intval(round($numberOfWorks / $worksPerPage));
 
-if (($worksPerPage % $numberOfWorks) !== 0)
-	$numberOfPages += 1;
+if (($worksPerPage % $numberOfWorks) !== 0) {
+    $numberOfPages += 1;
+}
 
 $currentPage = intval($_GET["page"] ?? "1");
 
 $stmt = $db->prepare(
-	"SELECT rowid, * FROM user_works
+    "SELECT rowid, * FROM user_works
 	 WHERE uid = :uid
 	 ORDER BY published_date
 	 DESC LIMIT :limit OFFSET :offset"
 );
 
 $stmt->execute(
-	[
-		"uid" => $uid,
-		"limit" => $worksPerPage,
-		"offset" => ($currentPage - 1) * $worksPerPage
-	]
+    [
+        "uid" => $uid,
+        "limit" => $worksPerPage,
+        "offset" => ($currentPage - 1) * $worksPerPage
+    ]
 );
 
 $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -113,27 +116,27 @@ $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $pagination = [];
 
 if ($currentPage !== 1) {
-	$pagination[] = [
-		'page' => 'Previous',
-		'ref' => $currentPage - 1,
-		'active' => "",
-	];
+    $pagination[] = [
+        'page' => 'Previous',
+        'ref' => $currentPage - 1,
+        'active' => "",
+    ];
 }
 
 for ($i = 1; $i <= $numberOfPages; $i++) {
-	$pagination[] = [
-		'page' => $i,
-		'ref' => $i,
-		'active' => ($i === $currentPage) ? "" : "disabled",
-	];
+    $pagination[] = [
+        'page' => $i,
+        'ref' => $i,
+        'active' => ($i === $currentPage) ? "" : "disabled",
+    ];
 }
 
 if ($currentPage !== $numberOfPages) {
-	$pagination[] = [
-		'page' => 'Next',
-		'ref' => $currentPage + 1,
-		'active' => "disabled",
-	];
+    $pagination[] = [
+        'page' => 'Next',
+        'ref' => $currentPage + 1,
+        'active' => "disabled",
+    ];
 }
 ?>
 <!DOCTYPE html>
@@ -172,9 +175,9 @@ if ($currentPage !== $numberOfPages) {
 		</div>
 		<?php foreach ($works as $work) : ?>
 			<?php if (
-				$work["type"] == "draft" && $_SESSION["user"]["uid"] === $work["uid"] ||
-				$work["type"] != "draft"
-			) : ?>
+                $work["type"] == "draft" && $_SESSION["user"]["uid"] === $work["uid"] ||
+                $work["type"] != "draft"
+            ) : ?>
 				<div class="card mb-2">
 					<div class="card-body">
 						<div>
