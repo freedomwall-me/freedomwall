@@ -10,55 +10,55 @@ require_once "classes/guid.class.php";
 $db = Database::getDatabase();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$email = $_POST["email"];
-	$username = $_POST["username"];
-	$password = hash("sha512", $_POST["password"]);
+    $email = $_POST["email"];
+    $username = $_POST["username"];
+    $password = hash("sha512", $_POST["password"]);
 
-	$stmt = $db->prepare(
-		"SELECT email, username FROM users
+    $stmt = $db->prepare(
+        "SELECT email, username FROM users
 		 WHERE email = :email
 		 OR username = :username;"
-	);
+    );
 
-	$stmt->execute(["email" => $email, "username" => $username]);
+    $stmt->execute(["email" => $email, "username" => $username]);
 
-	$check1 = $stmt->fetchColumn(0);
-	$check2 = $stmt->fetchColumn(1);
+    $check1 = $stmt->fetchColumn(0);
+    $check2 = $stmt->fetchColumn(1);
 
-	$error = false;
+    $error = false;
 
-	if (!empty($check1)) {
-		$invalidEmail = true;
-		$error = true;
-	}
+    if (!empty($check1)) {
+        $invalidEmail = true;
+        $error = true;
+    }
 
-	if (!empty($check2)) {
-		$invalidUsername = true;
-		$error = true;
-	}
+    if (!empty($check2)) {
+        $invalidUsername = true;
+        $error = true;
+    }
 
-	if (!$error) {
-		$stmt = $db->prepare(
-			"INSERT INTO users
+    if (!$error) {
+        $stmt = $db->prepare(
+            "INSERT INTO users
 		 	 VALUES (
 				:uid,
 			 	:email,
 				:username,
 				:password
 			 );"
-		);
+        );
 
-		$stmt->execute(
-			[
-				"uid" => Guid::guidv4(),
-				"email" => $email,
-				"username" => $username,
-				"password" => $password
-			]
-		);
+        $stmt->execute(
+            [
+                "uid" => Guid::guidv4(),
+                "email" => $email,
+                "username" => $username,
+                "password" => $password
+            ]
+        );
 
-		header('Location: /login');
-	}
+        header('Location: /login');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -81,14 +81,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<form class="px-md-2 needs-validation" action="/register" method="post" novalidate>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="username">Username</label>
-								<input type="text" name="username" class="form-control <?php if ($invalidUsername) echo "is-invalid" ?>" required>
+								<input type="text" name="username" class="form-control <?php if ($invalidUsername) {
+    echo "is-invalid";
+} ?>" required>
 								<div class="invalid-feedback">
 									<?= $invalidUsername ? 'This username has been taken.' : 'Please fill out this field.' ?>
 								</div>
 							</div>
 							<div class="form-outline mb-4">
 								<label class="form-label" for="email">Email</label>
-								<input type="email" name="email" class="form-control <?php if ($invalidEmail) echo "is-invalid" ?>" required>
+								<input type="email" name="email" class="form-control <?php if ($invalidEmail) {
+    echo "is-invalid";
+} ?>" required>
 								<div class="invalid-feedback">
 									<?= $invalidEmail ? 'This email is already being used by another account.' : 'Please fill out this field.' ?>
 								</div>

@@ -7,84 +7,85 @@ $withId = false;
 $db = Database::getDatabase();
 
 if (array_key_exists("id", $_GET)) {
-	$withId = true;
-	$currentUid = $_SESSION["user"]["uid"];
+    $withId = true;
+    $currentUid = $_SESSION["user"]["uid"];
 
-	$stmt = $db->prepare(
-		"SELECT * FROM user_works
+    $stmt = $db->prepare(
+        "SELECT * FROM user_works
 		 WHERE rowid = :rowid;"
-	);
+    );
 
-	$stmt->execute(["rowid" => $_GET["id"]]);
+    $stmt->execute(["rowid" => $_GET["id"]]);
 
-	$work = $stmt->fetch(PDO::FETCH_ASSOC);
+    $work = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if (!$work) {
-		http_response_code(404);
-		include_once "public_html/errors/404.php";
-		die;
-	}
+    if (!$work) {
+        http_response_code(404);
+        include_once "public_html/errors/404.php";
+        die;
+    }
 
-	if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
-		http_response_code(403);
-		include_once "public_html/errors/403.php";
-		die;
-	}
+    if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
+        http_response_code(403);
+        include_once "public_html/errors/403.php";
+        die;
+    }
 
-	$publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
-		->format("F j, Y g:i:s A");
+    $publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
+        ->format("F j, Y g:i:s A");
 } else {
-	$stmt = $db->query("SELECT COUNT(*) FROM user_works;");
+    $stmt = $db->query("SELECT COUNT(*) FROM user_works;");
 
-	$worksPerPage = intval($_GET["show"] ?? "12");
-	$numberOfWorks = $stmt->fetchColumn();
-	$numberOfPages = intval(round($numberOfWorks / $worksPerPage));
+    $worksPerPage = intval($_GET["show"] ?? "12");
+    $numberOfWorks = $stmt->fetchColumn();
+    $numberOfPages = intval(round($numberOfWorks / $worksPerPage));
 
-	if (($worksPerPage % $numberOfWorks) !== 0)
-		$numberOfPages += 1;
+    if (($worksPerPage % $numberOfWorks) !== 0) {
+        $numberOfPages += 1;
+    }
 
-	$currentPage = intval($_GET["page"] ?? "1");
+    $currentPage = intval($_GET["page"] ?? "1");
 
-	$stmt = $db->prepare(
-		"SELECT rowid, * FROM user_works
+    $stmt = $db->prepare(
+        "SELECT rowid, * FROM user_works
 		 ORDER BY published_date
 		 DESC LIMIT :limit OFFSET :offset"
-	);
+    );
 
-	$stmt->execute(
-		[
-			"limit" => $worksPerPage,
-			"offset" => ($currentPage - 1) * $worksPerPage
-		]
-	);
+    $stmt->execute(
+        [
+            "limit" => $worksPerPage,
+            "offset" => ($currentPage - 1) * $worksPerPage
+        ]
+    );
 
-	$works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	$pagination = [];
+    $pagination = [];
 
-	if ($currentPage !== 1) {
-		$pagination[] = [
-			'page' => 'Previous',
-			'ref' => $currentPage - 1,
-			'active' => "",
-		];
-	}
+    if ($currentPage !== 1) {
+        $pagination[] = [
+            'page' => 'Previous',
+            'ref' => $currentPage - 1,
+            'active' => "",
+        ];
+    }
 
-	for ($i = 1; $i <= $numberOfPages; $i++) {
-		$pagination[] = [
-			'page' => $i,
-			'ref' => $i,
-			'active' => ($i === $currentPage) ? "" : "disabled",
-		];
-	}
+    for ($i = 1; $i <= $numberOfPages; $i++) {
+        $pagination[] = [
+            'page' => $i,
+            'ref' => $i,
+            'active' => ($i === $currentPage) ? "" : "disabled",
+        ];
+    }
 
-	if ($currentPage !== $numberOfPages) {
-		$pagination[] = [
-			'page' => 'Next',
-			'ref' => $currentPage + 1,
-			'active' => "disabled",
-		];
-	}
+    if ($currentPage !== $numberOfPages) {
+        $pagination[] = [
+            'page' => 'Next',
+            'ref' => $currentPage + 1,
+            'active' => "disabled",
+        ];
+    }
 }
 ?>
 <!DOCTYPE html>

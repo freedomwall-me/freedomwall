@@ -1,4 +1,6 @@
-<?php if (!isset($work)) die ?>
+<?php if (!isset($work)) {
+    die;
+} ?>
 <?php $id = $work["rowid"] ?>
 <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">

@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-if (!array_key_exists("user", $_SESSION))
-	header("Location: /login?redir=create");
+if (!array_key_exists("user", $_SESSION)) {
+    header("Location: /login?redir=create");
+}
 
 require_once "classes/dbh.class.php";
 
@@ -11,28 +12,28 @@ $published = false;
 $editing = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if (array_key_exists("edit", $_POST)) {
-		$stmt = $db->prepare(
-			"UPDATE user_works
+    if (array_key_exists("edit", $_POST)) {
+        $stmt = $db->prepare(
+            "UPDATE user_works
 			 SET title = :title,
 			     tags = :tags,
 				 body = :body,
 				 type = :type
 			 WHERE rowid = :rowid;"
-		);
+        );
 
-		$stmt->execute(
-			[
-				"title" => $_POST["title"],
-				"tags" => $_POST["tags"],
-				"body" => $_POST["body"],
-				"type" => $_POST["type"],
-				"rowid" => $_POST["edit"],
-			]
-		);
-	} else {
-		$stmt = $db->prepare(
-			"INSERT INTO user_works
+        $stmt->execute(
+            [
+                "title" => $_POST["title"],
+                "tags" => $_POST["tags"],
+                "body" => $_POST["body"],
+                "type" => $_POST["type"],
+                "rowid" => $_POST["edit"],
+            ]
+        );
+    } else {
+        $stmt = $db->prepare(
+            "INSERT INTO user_works
 			 VALUES (
 				:uid,
 				:title,
@@ -41,49 +42,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				:type,
 				:datetime
 			 );"
-		);
+        );
 
-		$stmt->execute(
-			[
-				"uid" => $_SESSION["user"]["uid"],
-				"title" => $_POST["title"],
-				"tags" => $_POST["tags"],
-				"body" => $_POST["body"],
-				"type" => $_POST["type"],
-				"datetime" => gmdate("ymd his A"),
-			]
-		);
-	}
+        $stmt->execute(
+            [
+                "uid" => $_SESSION["user"]["uid"],
+                "title" => $_POST["title"],
+                "tags" => $_POST["tags"],
+                "body" => $_POST["body"],
+                "type" => $_POST["type"],
+                "datetime" => gmdate("ymd his A"),
+            ]
+        );
+    }
 
-	$published = true;
+    $published = true;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	if (array_key_exists("edit", $_GET)) {
-		$editing = true;
-		$id = $_GET["edit"];
+    if (array_key_exists("edit", $_GET)) {
+        $editing = true;
+        $id = $_GET["edit"];
 
-		$stmt = $db->prepare(
-			"SELECT * FROM user_works
+        $stmt = $db->prepare(
+            "SELECT * FROM user_works
 		 	 WHERE rowid = :rowid;"
-		);
+        );
 
-		$stmt->execute(["rowid" => $id]);
+        $stmt->execute(["rowid" => $id]);
 
-		$work = $stmt->fetch(PDO::FETCH_ASSOC);
+        $work = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if (!$work) {
-			http_response_code(404);
-			include_once "public_html/errors/404.php";
-			die;
-		}
+        if (!$work) {
+            http_response_code(404);
+            include_once "public_html/errors/404.php";
+            die;
+        }
 
-		if ($work["uid"] !== $_SESSION["user"]["uid"] || $work["type"] != "draft") {
-			http_response_code(403);
-			include_once "public_html/errors/403.php";
-			die;
-		}
-	}
+        if ($work["uid"] !== $_SESSION["user"]["uid"] || $work["type"] != "draft") {
+            http_response_code(403);
+            include_once "public_html/errors/403.php";
+            die;
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -123,23 +124,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			<input type="text" name="title" class="form-control form-control-lg" placeholder="Think of a good title..." required <?php if ($editing) : ?> value="<?= $work["title"] ?>" <?php endif; ?>>
 
 			<input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput" <?php if ($editing) : ?> value="<?=
-																																				implode(								// split by ,
-																																					",",
-																																					array_map(							// $work["tags"] is an array within an array, so
-																																						// just return the value within the inner arrays
-																																						fn ($value) => $value["value"],
-																																						json_decode(					// it is a JSON string
-																																							$work["tags"],
-																																							true						// return as associative array
-																																						)
-																																					)
-																																				) ?>" <?php endif; ?>>
+                                                                                                                                                implode(								// split by ,
+                                                                                                                                                    ",",
+                                                                                                                                                    array_map(							// $work["tags"] is an array within an array, so
+                                                                                                                                                        // just return the value within the inner arrays
+                                                                                                                                                        fn ($value) => $value["value"],
+                                                                                                                                                        json_decode(					// it is a JSON string
+                                                                                                                                                            $work["tags"],
+                                                                                                                                                            true						// return as associative array
+                                                                                                                                                        )
+                                                                                                                                                    )
+                                                                                                                                                ) ?>" <?php endif; ?>>
 
 			<textarea class="form-control" id="ss" name="body" placeholder="Type here">
 				<?php
-				if ($editing)
-					echo $work["body"];
-				?>
+                if ($editing) {
+                    echo $work["body"];
+                }
+                ?>
 			</textarea>
 
 			<div class="mt-3">
