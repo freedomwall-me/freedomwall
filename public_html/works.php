@@ -1,18 +1,23 @@
 <?php
 session_start();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
+require_once "classes/dbh.class.php";
 
 $withId = false;
-$db = new PDO("sqlite:" . Config::DATABASE);
+$db = Database::getDatabase();
 
 if (array_key_exists("id", $_GET)) {
 	$withId = true;
-	$id = $_GET["id"];
-	$work = $db->query(
-		"SELECT rowid, * FROM user_works
-		 WHERE rowid='$id';"
-	)->fetch(PDO::FETCH_ASSOC);
+	$currentUid = $_SESSION["user"]["uid"];
+
+	$stmt = $db->prepare(
+		"SELECT * FROM user_works
+		 WHERE rowid = :rowid;"
+	);
+
+	$stmt->execute(["rowid" => $_GET["id"]]);
+
+	$work = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	if (!$work) {
 		http_response_code(404);
@@ -20,44 +25,49 @@ if (array_key_exists("id", $_GET)) {
 		die;
 	}
 
-	if ($work["type"] == "draft" && $work["uid"] !== $_SESSION["user"]["uid"]) {
+	if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
 		http_response_code(403);
 		include_once "errors/403.php";
 		die;
 	}
 
-	$author = $db->query(
+	$stmt = $db->prepare(
 		"SELECT username FROM users
-		 WHERE uid='" . $work["uid"] . "';"
-	)->fetch(PDO::FETCH_ASSOC)["username"];
+		 WHERE uid = :uid;"
+	);
+
+	$stmt->execute(["uid" => $currentUid]);
+
+	$author = $stmt->fetchColumn();
+	$publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
+		->format("F j, Y g:i:s A");
 }
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<?php require_once "templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<?php if ($withId) : ?>
 			<div class="row">
 				<div class="row">
 					<div>
-						<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
+						<?php if ($work["uid"] === $currentUid) : ?>
 							<div class="float-end btn-group">
-								<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/workConfig.template.php"; ?>
+								<?php include "templates/workConfig.template.php"; ?>
 							</div>
 						<?php endif; ?>
 						<h1><?= $work["title"] ?></h1>
 					</div>
 					<small class="text-muted">
 						Published by <?= $author ?>
-						on <?= DateTime::createFromFormat("ymd his A", $work["published_date"])->format("F j, Y g:i:s A") ?>
+						on <?= $publishedDate ?>
 					</small>
 					<?php if ($work["type"] == "draft") : ?>
 						<strong>

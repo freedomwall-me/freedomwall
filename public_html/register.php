@@ -4,20 +4,27 @@ session_start();
 $invalidUsername = false;
 $invalidEmail = false;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../classes/guid.class.php";
+require_once "classes/dbh.class.php";
+require_once "classes/guid.class.php";
 
-$db = new PDO("sqlite:" . Config::DATABASE);
+$db = Database::getDatabase();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$username = $_POST["username"];
-	$password = $_POST["password"];
 	$email = $_POST["email"];
+	$username = $_POST["username"];
+	$password = hash("sha512", $_POST["password"]);
 
-	$spassword = hash("sha512", $password);
+	$stmt = $db->prepare(
+		"SELECT email, username FROM users
+		 WHERE email = :email
+		 OR username = :username;"
+	);
 
-	$check1 = $db->query("SELECT username FROM users WHERE email='$email'")->fetch(PDO::FETCH_ASSOC)["username"];
-	$check2 = $db->query("SELECT email FROM users WHERE username='$username'")->fetch(PDO::FETCH_ASSOC)["email"];
+	$stmt->execute(["email" => $email, "username" => $username]);
+
+	$check1 = $stmt->fetchColumn(0);
+	$check2 = $stmt->fetchColumn(1);
+
 	$error = false;
 
 	if (!empty($check1)) {
@@ -31,14 +38,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
 	if (!$error) {
-		$db->exec(
+		$stmt = $db->prepare(
 			"INSERT INTO users
 		 	 VALUES (
-				'" . Guid::guidv4() . "',
-			 	'$email',
-				'$username',
-				'$spassword'
+				:uid,
+			 	:email,
+				:username,
+				:password
 			 );"
+		);
+
+		$stmt->execute(
+			[
+				"uid" => Guid::guidv4(),
+				"email" => $email,
+				"username" => $username,
+				"password" => $password
+			]
 		);
 
 		header('Location: /login');
@@ -49,12 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<?php require_once "templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">

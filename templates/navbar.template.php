@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
 	<div class="container">
-		<a href="/" class="navbar-brand">
+		<a href="/" class="navbar-brand" style="font-family: Separat;">
 			<svg width="32" height="32">
 				<image xlink:href="/assets/svg/icon.svg" width="32" height="32"></image>
 			</svg>

@@ -1,24 +1,26 @@
 <?php
 session_start();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../config.php";
+require_once "classes/dbh.class.php";
 
-$db = new PDO("sqlite:" . Config::DATABASE);
+$db = Database::getDatabase();
 $invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$emailOrUsername = $_POST["data"];
-	$password = $_POST["password"];
+	$data = $_POST["data"];
+	$password = hash("sha512", $_POST["password"]);
 
-	$spassword = hash("sha512", $password);
+	$stmt = $db->prepare(
+		"SELECT * FROM users
+		 WHERE email = :email
+		 OR username = :username;"
+	);
 
-	$from = $db->query(
-		"SELECT uid, email, username, password FROM users
-		 WHERE email='$emailOrUsername'
-		 OR username='$emailOrUsername';"
-	)->fetch(PDO::FETCH_ASSOC);
+	$stmt->execute(["email" => $data, "username" => $data]);
 
-	if ($from["password"] !== $spassword) {
+	$from = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	if ($from["password"] !== $password) {
 		$invalid = true;
 	} else {
 		$_SESSION["user"] = array(
@@ -26,8 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			"uid" => $from["uid"]
 		);
 
-		$redir = array_key_exists("redir", $_POST) ? $_POST["redir"] : "";
-		header("Location: /$redir");
+		if (array_key_exists("redir", $_POST)) {
+			$ref = $_POST['redir'];
+			header("Location: /$ref");
+		}
 	}
 }
 ?>
@@ -35,12 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<?php require_once "templates/head.template.php" ?>
 </head>
-
 <body>
-	<?php include $_SERVER['DOCUMENT_ROOT'] . "/../templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">

@@ -1,7 +1,7 @@
 db/
 vendor/
 
-config.php
+classes/dbh.class.php
 
 composer.json
 composer.lock

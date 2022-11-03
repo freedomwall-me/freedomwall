@@ -6,20 +6,17 @@
     </svg>
 </button>
 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <?php if ($work["type"] == "draft") : ?>
-        <a class="dropdown-item" href="/create?edit=<?= $id ?>">Edit</a>
-        <form action="/profile" method="post">
+    <form action="/profile" method="post">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <?php if ($work["type"] == "draft") : ?>
+            <a class="dropdown-item" href="/create?edit=<?= $id ?>">Edit</a>
             <input type="hidden" name="operation" value="publish">
-            <input type="hidden" name="id" value="<?= $id ?>">
             <a class="dropdown-item text-success" href="#" onclick="this.parentNode.submit()">Publish</a>
-        </form>
-    <?php else : ?>
-        <form action="/profile" method="post">
+        <?php else : ?>
             <input type="hidden" name="operation" value="unpublish">
-            <input type="hidden" name="id" value="<?= $id ?>">
             <a class="dropdown-item text-danger" href="#" onclick="this.parentNode.submit()">Unpublish</a>
-        </form>
-    <?php endif; ?>
+        <?php endif; ?>
+    </form>
     <form action="/profile" method="post">
         <input type="hidden" name="operation" value="delete">
         <input type="hidden" name="id" value="<?= $id ?>">
