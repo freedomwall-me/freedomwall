@@ -5,6 +5,4 @@ vendor/
 
 classes/dbh.class.php
 
-composer.json
-composer.lock
 composer.phar

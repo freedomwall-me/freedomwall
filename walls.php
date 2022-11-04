@@ -21,13 +21,13 @@ if (array_key_exists("id", $_GET)) {
 
     if (!$work) {
         http_response_code(404);
-        include_once "public_html/errors/404.php";
+        include_once "errors/404.php";
         die;
     }
 
     if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
         http_response_code(403);
-        include_once "public_html/errors/403.php";
+        include_once "errors/403.php";
         die;
     }
 
@@ -92,11 +92,11 @@ if (array_key_exists("id", $_GET)) {
 <html>
 
 <head>
-	<?php require_once "public_html/templates/head.template.php" ?>
+	<?php require_once "templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include "public_html/templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<?php if ($withId) : ?>
@@ -105,7 +105,7 @@ if (array_key_exists("id", $_GET)) {
 					<div>
 						<?php if ($work["uid"] === $currentUid) : ?>
 							<div class="float-end btn-group">
-								<?php include "public_html/templates/workConfig.template.php"; ?>
+								<?php include "templates/workConfig.template.php"; ?>
 							</div>
 						<?php endif; ?>
 						<h1><?= $work["title"] ?></h1>

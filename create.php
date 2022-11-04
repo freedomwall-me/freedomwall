@@ -75,13 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if (!$work) {
             http_response_code(404);
-            include_once "public_html/errors/404.php";
+            include_once "errors/404.php";
             die;
         }
 
         if ($work["uid"] !== $_SESSION["user"]["uid"] || $work["type"] != "draft") {
             http_response_code(403);
-            include_once "public_html/errors/403.php";
+            include_once "errors/403.php";
             die;
         }
     }
@@ -91,13 +91,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 <html>
 
 <head>
-	<?php require_once "public_html/templates/head.template.php" ?>
+	<?php require_once "templates/head.template.php" ?>
 	<script src="https://cdn.tiny.cloud/1/ugdxfv7ldx4nxeqyhu7xw7b4p4vvdvrdafophbluw6bg80un/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-	<?php include "public_html/templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<h1 class="mb-4">

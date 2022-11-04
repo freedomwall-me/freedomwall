@@ -38,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-	<?php require_once "public_html/templates/head.template.php" ?>
+	<?php require_once "templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include "public_html/templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="container my-5 h-100">
 		<div class="row d-flex justify-content-center align-items-center h-100">

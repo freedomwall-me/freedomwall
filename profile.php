@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($creatorUid !== $currentUid) {
         http_response_code(403);
-        include_once "public_html/errors/403.php";
+        include_once "errors/403.php";
         die;
     }
 
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         default:
             http_response_code(404);
-            include_once "public_html/errors/404.php";
+            include_once "errors/404.php";
             die;
     }
 
@@ -130,11 +130,11 @@ if ($currentPage !== $numberOfPages) {
 <html>
 
 <head>
-	<?php require_once "public_html/templates/head.template.php" ?>
+	<?php require_once "templates/head.template.php" ?>
 </head>
 
 <body>
-	<?php include "public_html/templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<div class="page-header mb-4">
@@ -156,7 +156,7 @@ if ($currentPage !== $numberOfPages) {
 					<div>
 						<?php if ($_SESSION["user"]["uid"] === $work["uid"]) : ?>
 							<div class="float-end btn-group">
-								<?php include "public_html/templates/workConfig.template.php"; ?>
+								<?php include "templates/workConfig.template.php"; ?>
 							</div>
 						<?php endif; ?>
 						<a class="card-title text-reset text-decoration-none h5" href="/walls/<?= $work["rowid"] ?>"><?= $work["title"] ?></a>

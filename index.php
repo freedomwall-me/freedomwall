@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<?php require_once "public_html/templates/head.template.php" ?>
+	<?php require_once "templates/head.template.php" ?>
 	<style>
 		.drk {
 			filter: brightness(65%);
@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<?php include "public_html/templates/navbar.template.php"; ?>
+	<?php include "templates/navbar.template.php"; ?>
 
 	<div class="my-5 container">
 		<h1>Welcome to the <span style="font-family: Separat;">freedomwall</span></h1>
