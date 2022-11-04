@@ -1,7 +1,8 @@
 <?php
+
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-	echo "Unauthorized";
-	return;
+    echo "Unauthorized";
+    return;
 }
 
 session_start();
