@@ -136,10 +136,10 @@ if (array_key_exists("id", $_GET)) {
 
 			<div>
 				<?php
-				$count = count($works);
-				for ($i = 0; $i < count($works); $i++) :
-				    $work = $works[$i];
-		        ?>
+                $count = count($works);
+                for ($i = 0; $i < count($works); $i++) :
+                    $work = $works[$i];
+                ?>
 					<?php if ($i % 3 === 0) : ?>
 						<div class="row">
 						<?php endif; ?>
