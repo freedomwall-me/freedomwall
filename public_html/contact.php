@@ -11,10 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers = ['From' => $fromEmail, 'Reply-To' => $fromEmail, 'Content-Type' => 'text/plain; charset=utf-8'];
     $body = $_POST["body"];
 
-    if (!mail($toEmail, $emailSubject, $body, $headers))
+    if (!mail($toEmail, $emailSubject, $body, $headers)) {
         $error = true;
-    else
+    } else {
         $submitted = true;
+    }
 
     // tell user that feedback has been submitted
     mail(
