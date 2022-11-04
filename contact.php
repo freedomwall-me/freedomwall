@@ -10,10 +10,11 @@ session_start();
 $error = false;
 $submitted = false;
 
-echo getenv('SMTP_SERVER');
-            echo getenv('SMTP_USERNAME');
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = $_POST['email'];
+    $no_reply = getenv('NO_REPLY_EMAIL');
+    $support = getenv('SUPPORT_EMAIL');
+
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();
@@ -26,28 +27,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->SMTPAuth = true;
     $mail->Port = 587;
 
-    $mail->From = $_POST["email"];
+    $mail->From = $no_reply;
 
-    $mail->addAddress("support@freedomwall.me");
-    $mail->addReplyTo("support@freedomwall.me");
+    $mail->addAddress($support);
+    $mail->addReplyTo($user);
 
-    $mail->Subject = 'Feedback from ' . $_POST['email'];
+    $mail->Subject = "Feedback from $user";
     $mail->Body = $_POST['body'];
 
     try {
         $mail->send();
-    } catch (Exception $ex) {
         $submitted = true;
+    } catch (Exception $ex) {
         $error = true;
     }
 
     if (!$error) {
         // tell user that feedback has been submitted
         $mail->clearAddresses();
+        $mail->clearReplyTos();
 
-        $mail->From = "support@freedomwall.me";
-        $mail->addAddress($_POST['email']);
-        $mail->addReplyTo($_POST['email']);
+        $mail->addAddress($support);
+        $mail->addReplyTo($user);
 
         $mail->isHTML();
 
