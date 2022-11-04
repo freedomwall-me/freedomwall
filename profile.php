@@ -96,8 +96,6 @@ $stmt->execute(
 
 $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-print_r($works);
-
 $pagination = [];
 
 if ($currentPage !== 1) {
@@ -171,7 +169,7 @@ if ($currentPage !== $numberOfPages) {
 						<?php endforeach; ?>
 
 						<p class="card-text">
-							<?= $work["body"] ?>
+							<?= bzdecompress($work["body"]) ?>
 						</p>
 					</div>
 				</div>

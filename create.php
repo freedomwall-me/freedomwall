@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             [
                 "title" => $_POST["title"],
                 "tags" => $_POST["tags"],
-                "body" => $_POST["body"],
+                "body" => bzcompress($_POST["body"]),
                 "type" => $_POST["type"],
                 "rowid" => $_POST["edit"],
             ]
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "uid" => $_SESSION["user"]["uid"],
                 "title" => $_POST["title"],
                 "tags" => $_POST["tags"],
-                "body" => $_POST["body"],
+                "body" => bzcompress($_POST["body"]),
                 "type" => $_POST["type"],
                 "datetime" => gmdate("ymd his A"),
             ]

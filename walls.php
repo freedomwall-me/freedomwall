@@ -36,7 +36,7 @@ if (array_key_exists("id", $_GET)) {
 			"F j, Y g:i:s A"
 		);
 } else {
-	$stmt = $db->query("SELECT COUNT(*) FROM user_works;");
+	$stmt = $db->query("SELECT COUNT(*) FROM user_works WHERE type <> 'draft';");
 
 	$worksPerPage = intval($_GET["show"] ?? "12");
 	$numberOfWorks = $stmt->fetchColumn();
@@ -46,6 +46,7 @@ if (array_key_exists("id", $_GET)) {
 
 	$stmt = $db->prepare(
 		"SELECT rowid, * FROM user_works
+		 WHERE type <> 'draft'
 		 ORDER BY published_date
 		 DESC LIMIT :limit OFFSET :offset"
 	);
@@ -125,20 +126,20 @@ if (array_key_exists("id", $_GET)) {
 						<?php endif; ?>
 						<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
 							<span class="badge text-bg-secondary">
-								<?= $obj["value"] ?>
+								<?= $obj["value"]; ?>
 							</span>
 						<?php endforeach; ?>
 					</div>
 				</div>
 				<p>
-					<?= $work["body"] ?>
+					<?= bzdecompress($work["body"]) ?>
 				</p>
 			</div>
 		<?php else : ?>
 			<h1 class="mb-4">Walls</h1>
 
 			<?php if ($numberOfWorks == 0) : ?>
-				No works yet. Come back later...
+				No walls yet. Come back later...
 			<?php else : ?>
 				<div>
 
@@ -151,17 +152,13 @@ if (array_key_exists("id", $_GET)) {
 							<div class="row">
 							<?php endif; ?>
 							<div class="col-4">
-								<div class="card mb-3">
-									<div class="card-body" style="height: 17.5em;">
+								<div class="card mb-3" style="height: 17.5em;">
+									<div class="card-body">
 										<div>
 											<a class="card-title text-reset text-decoration-none h5" href="/walls/<?= $work["rowid"] ?>">
 												<?= $work["title"] ?>
 											</a>
 										</div>
-
-										<?php if ($work["type"] == "draft") : ?>
-											<span class="badge text-bg-warning">Draft</span>
-										<?php endif; ?>
 
 										<?php foreach (json_decode($work["tags"], true) as $obj) : ?>
 											<span class="badge text-bg-secondary">
@@ -169,8 +166,8 @@ if (array_key_exists("id", $_GET)) {
 											</span>
 										<?php endforeach; ?>
 
-										<p class="card-text" style="text-overflow: ellipsis; overflow: hidden;">
-											<?= $work["body"] ?>
+										<p class="card-text">
+											<?= bzdecompress($work["body"]) ?>
 										</p>
 									</div>
 								</div>
