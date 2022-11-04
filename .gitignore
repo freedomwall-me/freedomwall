@@ -1,8 +1,8 @@
 .vscode/
 
-db/
+db/*
 vendor/
 
-classes/dbh.class.php
+!db/db.sql
 
 composer.phar

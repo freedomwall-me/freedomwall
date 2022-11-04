@@ -1,11 +1,14 @@
 <?php
+require 'vendor/autoload.php';
+
 session_start();
 
 $invalidUsername = false;
 $invalidEmail = false;
 
 require_once "classes/dbh.class.php";
-require_once "classes/guid.class.php";
+
+use Ramsey\Uuid\Uuid;
 
 $db = Database::getDatabase();
 
@@ -38,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!$error) {
-        $stmt = $db->prepare(
+		$uid = Uuid::uuid4();
+
+		$stmt = $db->prepare(
             "INSERT INTO users
 		 	 VALUES (
 				:uid,
@@ -50,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->execute(
             [
-                "uid" => Guid::guidv4(),
+                "uid" => $uid->toString(),
                 "email" => $email,
                 "username" => $username,
                 "password" => $password
