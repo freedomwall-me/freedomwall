@@ -7,96 +7,96 @@ $withId = false;
 $db = Database::getDatabase();
 
 if (array_key_exists("id", $_GET)) {
-	$withId = true;
-	$currentUid = $_SESSION["user"]["uid"];
+    $withId = true;
+    $currentUid = $_SESSION["user"]["uid"];
 
-	$stmt = $db->prepare(
-		"SELECT rowid, * FROM user_works
+    $stmt = $db->prepare(
+        "SELECT rowid, * FROM user_works
 		 WHERE rowid = :rowid;"
-	);
+    );
 
-	$stmt->execute(["rowid" => $_GET["id"]]);
+    $stmt->execute(["rowid" => $_GET["id"]]);
 
-	$work = $stmt->fetch(PDO::FETCH_ASSOC);
+    $work = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if (!$work) {
-		http_response_code(404);
-		include_once "errors/404.php";
-		die;
-	}
+    if (!$work) {
+        http_response_code(404);
+        include_once "errors/404.php";
+        die;
+    }
 
-	if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
-		http_response_code(403);
-		include_once "errors/403.php";
-		die;
-	}
+    if ($work["type"] == "draft" && $work["uid"] !== $currentUid) {
+        http_response_code(403);
+        include_once "errors/403.php";
+        die;
+    }
 
-	$publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
-		->format(
-			"F j, Y g:i:s A"
-		);
+    $publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
+        ->format(
+            "F j, Y g:i:s A"
+        );
 } else {
-	$stmt = $db->prepare(
-		"SELECT COUNT(*) FROM user_works
+    $stmt = $db->prepare(
+        "SELECT COUNT(*) FROM user_works
 	 	 WHERE type <> 'draft';"
-	);
+    );
 
-	$stmt->execute();
+    $stmt->execute();
 
-	$worksPerPage = intval($_GET["show"] ?? "12");
-	$numberOfWorks = $stmt->fetchColumn();
-	$numberOfPages = intval(ceil($numberOfWorks / $worksPerPage));
+    $worksPerPage = intval($_GET["show"] ?? "12");
+    $numberOfWorks = $stmt->fetchColumn();
+    $numberOfPages = intval(ceil($numberOfWorks / $worksPerPage));
 
-	$currentPage = intval($_GET["page"] ?? "1");
+    $currentPage = intval($_GET["page"] ?? "1");
 
-	$stmt = $db->prepare(
-		"SELECT rowid, * FROM user_works
+    $stmt = $db->prepare(
+        "SELECT rowid, * FROM user_works
 		 ORDER BY published_date
 		 ASC LIMIT :limit OFFSET :offset"
-	);
+    );
 
-	$stmt->execute(
-		[
-			"limit" => $worksPerPage,
-			"offset" => ($currentPage - 1) * $worksPerPage
-		]
-	);
+    $stmt->execute(
+        [
+            "limit" => $worksPerPage,
+            "offset" => ($currentPage - 1) * $worksPerPage
+        ]
+    );
 
-	$works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	$pagination = [];
+    $pagination = [];
 
-	$pagination[] = [
-		'page' => '⮜⮜',
-		'ref' => 1,
-		'active' => ($currentPage != 1) ? '' : 'disabled',
-	];
+    $pagination[] = [
+        'page' => '⮜⮜',
+        'ref' => 1,
+        'active' => ($currentPage != 1) ? '' : 'disabled',
+    ];
 
-	$pagination[] = [
-		'page' => '⮜',
-		'ref' => $currentPage - 1,
-		'active' => ($currentPage != 1) ? '' : 'disabled',
-	];
+    $pagination[] = [
+        'page' => '⮜',
+        'ref' => $currentPage - 1,
+        'active' => ($currentPage != 1) ? '' : 'disabled',
+    ];
 
-	for ($i = 1; $i <= $numberOfPages; $i++) {
-		$pagination[] = [
-			'page' => $i,
-			'ref' => $i,
-			'active' => '',
-		];
-	}
+    for ($i = 1; $i <= $numberOfPages; $i++) {
+        $pagination[] = [
+            'page' => $i,
+            'ref' => $i,
+            'active' => '',
+        ];
+    }
 
-	$pagination[] = [
-		'page' => '⮞',
-		'ref' => $currentPage + 1,
-		'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
-	];
+    $pagination[] = [
+        'page' => '⮞',
+        'ref' => $currentPage + 1,
+        'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+    ];
 
-	$pagination[] = [
-		'page' => '⮞⮞',
-		'ref' => $numberOfPages,
-		'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
-	];
+    $pagination[] = [
+        'page' => '⮞⮞',
+        'ref' => $numberOfPages,
+        'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+    ];
 }
 ?>
 <!DOCTYPE html>
@@ -156,10 +156,10 @@ if (array_key_exists("id", $_GET)) {
 				<div>
 
 					<?php
-					$count = count($works);
-					for ($i = 0; $i < $count; $i++) :
-						$work = $works[$i];
-					?>
+                    $count = count($works);
+                    for ($i = 0; $i < $count; $i++) :
+                        $work = $works[$i];
+                    ?>
 						<?php if ($i % 3 === 0) : ?>
 							<div class="row">
 							<?php endif; ?>

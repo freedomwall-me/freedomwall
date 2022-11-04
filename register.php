@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!$error) {
-		$uid = Uuid::uuid4();
+        $uid = Uuid::uuid4();
 
-		$stmt = $db->prepare(
+        $stmt = $db->prepare(
             "INSERT INTO users
 		 	 VALUES (
 				:uid,
