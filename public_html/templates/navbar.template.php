@@ -1,4 +1,4 @@
-<div class="alert alert-info mb-0 py-2">
+<div class="alert alert-warning mb-0 py-2 rounded-0 border-0">
 	<span style="font-family: Separat;">freedomwall.me</span> is still in <strong>beta</strong>. You will lose your account at the time of release.
 </div>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
@@ -15,12 +15,15 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<div class="navbar-nav me-auto">
+				<a class="nav-item nav-link active" href="/contact">Feedback</a>
+			</div>
 			<div class="navbar-nav ms-auto">
 				<?php if (array_key_exists("user", $_SESSION)) :
 					$name = $_SESSION["user"]["displayName"]; ?>
 
 					<div class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link active dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Welcome back, <?= $name ?>.
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">

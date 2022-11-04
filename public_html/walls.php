@@ -139,7 +139,7 @@ if (array_key_exists("id", $_GET)) {
 						<div class="row">
 						<?php endif; ?>
 						<div class="col-4">
-							<div class="card mb-3">
+							<div class="card mb-3" style="height: 17.5em;">
 								<div class="card-body">
 									<div>
 										<a class="card-title text-reset text-decoration-none h5" href="/walls/<?= $work["rowid"] ?>"><?= $work["title"] ?></a>
@@ -153,7 +153,7 @@ if (array_key_exists("id", $_GET)) {
 										<span class="badge text-bg-secondary"><?= $obj["value"]; ?></span>
 									<?php endforeach; ?>
 
-									<p class="card-text">
+									<p class="card-text" style="text-overflow: ellipsis; overflow: hidden;">
 										<?= $work["body"] ?>
 									</p>
 								</div>
