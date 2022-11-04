@@ -10,30 +10,56 @@ session_start();
 $error = false;
 $submitted = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fromEmail = $_POST["email"];
-    $toEmail = "support@freedomwall.me";
-    $emailSubject = "Feedback from $fromEmail";
-    $headers = ['From' => $fromEmail, 'Reply-To' => $fromEmail, 'Content-Type' => 'text/plain; charset=utf-8'];
-    $body = $_POST["body"];
+echo getenv('SMTP_SERVER');
+            echo getenv('SMTP_USERNAME');
 
-    if (!mail($toEmail, $emailSubject, $body, $headers)) {
-        $error = true;
-    } else {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $mail = new PHPMailer(true);
+
+    $mail->isSMTP();
+
+    $mail->Mailer = 'smtp';
+    $mail->Host = getenv('SMTP_SERVER');
+    $mail->Username = getenv('SMTP_USERNAME');
+    $mail->Password = getenv('SMTP_PASSWORD');
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->Port = 587;
+
+    $mail->From = $_POST["email"];
+
+    $mail->addAddress("support@freedomwall.me");
+    $mail->addReplyTo("support@freedomwall.me");
+
+    $mail->Subject = 'Feedback from ' . $_POST['email'];
+    $mail->Body = $_POST['body'];
+
+    try {
+        $mail->send();
+    } catch (Exception $ex) {
         $submitted = true;
+        $error = true;
     }
 
-    // tell user that feedback has been submitted
-    mail(
-        $fromEmail,
-        "Your feedback is being processed",
-        file_get_contents("email.htm", true),
-        [
-            'From' => $toEmail,
-            'Reply-To' => $toEmail,
-            'Content-Type' => "text/html; charset=utf-8"
-        ]
-    );
+    if (!$error) {
+        // tell user that feedback has been submitted
+        $mail->clearAddresses();
+
+        $mail->From = "support@freedomwall.me";
+        $mail->addAddress($_POST['email']);
+        $mail->addReplyTo($_POST['email']);
+
+        $mail->isHTML();
+
+        $mail->Subject = 'Thank you for your feedback';
+        $mail->Body = file_get_contents('email.htm', true);
+
+        try {
+            $mail->send();
+        } catch (Exception $ex) {
+            //
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
