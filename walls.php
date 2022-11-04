@@ -36,7 +36,12 @@ if (array_key_exists("id", $_GET)) {
 			"F j, Y g:i:s A"
 		);
 } else {
-	$stmt = $db->query("SELECT COUNT(*) FROM user_works WHERE type <> 'draft';");
+	$stmt = $db->prepare(
+		"SELECT COUNT(*) FROM user_works
+	 	 WHERE type <> 'draft';"
+	);
+
+	$stmt->execute();
 
 	$worksPerPage = intval($_GET["show"] ?? "12");
 	$numberOfWorks = $stmt->fetchColumn();
@@ -46,9 +51,8 @@ if (array_key_exists("id", $_GET)) {
 
 	$stmt = $db->prepare(
 		"SELECT rowid, * FROM user_works
-		 WHERE type <> 'draft'
 		 ORDER BY published_date
-		 DESC LIMIT :limit OFFSET :offset"
+		 ASC LIMIT :limit OFFSET :offset"
 	);
 
 	$stmt->execute(
@@ -62,29 +66,37 @@ if (array_key_exists("id", $_GET)) {
 
 	$pagination = [];
 
-	if ($currentPage !== 1) {
-		$pagination[] = [
-			'page' => 'Previous',
-			'ref' => $currentPage - 1,
-			'active' => '',
-		];
-	}
+	$pagination[] = [
+		'page' => '⮜⮜',
+		'ref' => 1,
+		'active' => ($currentPage != 1) ? '' : 'disabled',
+	];
+
+	$pagination[] = [
+		'page' => '⮜',
+		'ref' => $currentPage - 1,
+		'active' => ($currentPage != 1) ? '' : 'disabled',
+	];
 
 	for ($i = 1; $i <= $numberOfPages; $i++) {
 		$pagination[] = [
 			'page' => $i,
 			'ref' => $i,
-			'active' => ($i === $currentPage) ? '' : 'disabled',
+			'active' => '',
 		];
 	}
 
-	if ($currentPage !== $numberOfPages) {
-		$pagination[] = [
-			'page' => 'Next',
-			'ref' => $currentPage + 1,
-			'active' => 'disabled',
-		];
-	}
+	$pagination[] = [
+		'page' => '⮞',
+		'ref' => $currentPage + 1,
+		'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+	];
+
+	$pagination[] = [
+		'page' => '⮞⮞',
+		'ref' => $numberOfPages,
+		'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+	];
 }
 ?>
 <!DOCTYPE html>
@@ -182,7 +194,7 @@ if (array_key_exists("id", $_GET)) {
 				<nav>
 					<ul class="pagination justify-content-center mt-4">
 						<?php foreach ($pagination as $pg) : ?>
-							<li class="page-item <?= $pg["state"] ?>">
+							<li class="page-item <?= $pg["active"] ?>">
 								<a class="page-link" href="/walls?page=<?= $pg["ref"] ?>">
 									<?= $pg["page"] ?>
 								</a>

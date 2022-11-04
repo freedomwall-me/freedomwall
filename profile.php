@@ -79,11 +79,14 @@ $numberOfPages = intval(ceil($numberOfWorks / $worksPerPage));
 
 $currentPage = intval($_GET["page"] ?? "1");
 
+echo $currentPage;
+echo $numberOfPages;
+
 $stmt = $db->prepare(
 	"SELECT rowid, * FROM user_works
 	 WHERE uid = :uid
 	 ORDER BY published_date
-	 DESC LIMIT :limit OFFSET :offset"
+	 ASC LIMIT :limit OFFSET :offset"
 );
 
 $stmt->execute(
@@ -98,29 +101,37 @@ $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $pagination = [];
 
-if ($currentPage !== 1) {
-	$pagination[] = [
-		'page' => 'Previous',
-		'ref' => $currentPage - 1,
-		'active' => "",
-	];
-}
+$pagination[] = [
+	'page' => '⮜⮜',
+	'ref' => 1,
+	'active' => ($currentPage != 1) ? '' : 'disabled',
+];
+
+$pagination[] = [
+	'page' => '⮜',
+	'ref' => $currentPage - 1,
+	'active' => ($currentPage != 1) ? '' : 'disabled',
+];
 
 for ($i = 1; $i <= $numberOfPages; $i++) {
 	$pagination[] = [
 		'page' => $i,
 		'ref' => $i,
-		'active' => ($i === $currentPage) ? "" : "disabled",
+		'active' => '',
 	];
 }
 
-if ($currentPage !== $numberOfPages) {
-	$pagination[] = [
-		'page' => 'Next',
-		'ref' => $currentPage + 1,
-		'active' => "disabled",
-	];
-}
+$pagination[] = [
+	'page' => '⮞',
+	'ref' => $currentPage + 1,
+	'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+];
+
+$pagination[] = [
+	'page' => '⮞⮞',
+	'ref' => $numberOfPages,
+	'active' => ($currentPage != $numberOfPages) ? '' : 'disabled',
+];
 ?>
 <!DOCTYPE html>
 <html>
