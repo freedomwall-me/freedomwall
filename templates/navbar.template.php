@@ -17,10 +17,11 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav me-auto">
 				<a class="nav-item nav-link active" href="/contact">Feedback</a>
+				<a class="nav-item nav-link active" href="/privacy">Privacy Policy</a>
 			</div>
 			<div class="navbar-nav ms-auto">
 				<?php if (array_key_exists("user", $_SESSION)) :
-                    $name = $_SESSION["user"]["displayName"]; ?>
+					$name = $_SESSION["user"]["displayName"]; ?>
 
 					<div class="nav-item dropdown">
 						<a class="nav-link active dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
