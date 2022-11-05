@@ -86,7 +86,7 @@ $stmt = $db->prepare(
     "SELECT rowid, * FROM user_works
 	 WHERE uid = :uid
 	 ORDER BY published_date
-	 ASC LIMIT :limit OFFSET :offset"
+	 DESC LIMIT :limit OFFSET :offset"
 );
 
 $stmt->execute(

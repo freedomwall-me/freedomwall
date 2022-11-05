@@ -31,10 +31,10 @@ if (array_key_exists("id", $_GET)) {
         die;
     }
 
-    $publishedDate = DateTime::createFromFormat("ymd his A", $work["published_date"])
-        ->format(
-            "F j, Y g:i:s A"
-        );
+	$publishedDate = DateTime::createFromFormat("Y-m-d H:i:s", $work["published_date"])
+		->format(
+			"F j, Y g:i:s A"
+		);
 } else {
     $stmt = $db->prepare(
         "SELECT COUNT(*) FROM user_works
@@ -52,8 +52,8 @@ if (array_key_exists("id", $_GET)) {
     $stmt = $db->prepare(
         "SELECT rowid, * FROM user_works
 		 ORDER BY published_date
-		 ASC LIMIT :limit OFFSET :offset"
-    );
+		 DESC LIMIT :limit OFFSET :offset"
+	);
 
     $stmt->execute(
         [
