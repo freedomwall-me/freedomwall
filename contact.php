@@ -47,8 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->clearAddresses();
         $mail->clearReplyTos();
 
-        $mail->addAddress($support);
-        $mail->addReplyTo($user);
+        $mail->addAddress($user);
 
         $mail->isHTML();
 
