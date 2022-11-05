@@ -12,7 +12,7 @@ $submitted = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['email'];
-    $noReply = getenv('NO_REPLY_EMAIL');
+    $no_reply = getenv('NO_REPLY_EMAIL');
     $support = getenv('SUPPORT_EMAIL');
 
     $mail = new PHPMailer(true);
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->SMTPAuth = true;
     $mail->Port = 587;
 
-    $mail->From = $noReply;
+    $mail->From = $no_reply;
 
     $mail->addAddress($support);
     $mail->addReplyTo($user);
@@ -47,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->clearAddresses();
         $mail->clearReplyTos();
 
-        $mail->addAddress($user);
+        $mail->addAddress($support);
+        $mail->addReplyTo($user);
 
         $mail->isHTML();
 
