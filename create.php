@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				"tags" => $_POST["tags"],
 				"body" => bzcompress($_POST["body"]),
 				"type" => $_POST["type"],
-				"datetime" => gmdate("ymd his A"),
+				"datetime" => gmdate("Y-m-d h:i:s"),
 			]
 		);
 	}
