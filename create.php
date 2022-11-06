@@ -44,17 +44,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			 );"
         );
 
-        $stmt->execute(
-            [
-                "uid" => $_SESSION["user"]["uid"],
-                "title" => $_POST["title"],
-                "tags" => $_POST["tags"],
-                "body" => bzcompress($_POST["body"]),
-                "type" => $_POST["type"],
-                "datetime" => gmdate("Y-m-d h:i:s"),
-            ]
-        );
-    }
+		$stmt->execute(
+			[
+				"uid" => $_SESSION["user"]["uid"],
+				"title" => $_POST["title"],
+				"tags" => $_POST["tags"],
+				"body" => bzcompress($_POST["body"]),
+				"type" => $_POST["type"],
+				"datetime" => gmdate("Y-m-d h:i:s"),
+			]
+		);
+	}
 
     $published = true;
 }
