@@ -159,9 +159,9 @@ if (array_key_exists("id", $_GET)) {
 
 					<?php
                     $count = count($works);
-                    for ($i = 0; $i < $count; $i++) :
-                        $work = $works[$i];
-                    ?>
+			    for ($i = 0; $i < $count; $i++) :
+			        $work = $works[$i];
+			        ?>
 						<?php if ($i % 3 === 0) : ?>
 							<div class="row">
 							<?php endif; ?>
