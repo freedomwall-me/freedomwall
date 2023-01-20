@@ -1,4 +1,6 @@
 <?php
+require 'vendor/autoload.php';
+
 session_start();
 
 require_once "classes/dbh.class.php";

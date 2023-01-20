@@ -6,3 +6,5 @@ vendor/
 !db/db.sql
 
 composer.phar
+
+.env

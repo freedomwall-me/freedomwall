@@ -1,4 +1,6 @@
 <?php
+require 'vendor/autoload.php';
+
 session_start();
 
 if (!array_key_exists("user", $_SESSION)) {
@@ -78,9 +80,6 @@ $numberOfWorks = $stmt->fetchColumn();
 $numberOfPages = intval(ceil($numberOfWorks / $worksPerPage));
 
 $currentPage = intval($_GET["page"] ?? "1");
-
-echo $currentPage;
-echo $numberOfPages;
 
 $stmt = $db->prepare(
     "SELECT rowid, * FROM user_works
