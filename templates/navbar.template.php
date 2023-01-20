@@ -21,7 +21,7 @@
 			</div>
 			<div class="navbar-nav ms-auto">
 				<?php if (array_key_exists("user", $_SESSION)) :
-                    $name = $_SESSION["user"]["displayName"]; ?>
+				    $name = $_SESSION["user"]["displayName"]; ?>
 
 					<div class="nav-item dropdown">
 						<a class="nav-link active dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 if ($editing) {
                     echo bzdecompress($work["body"]);
                 }
-                ?>
+?>
 			</textarea>
 
 			<div class="mt-3">
