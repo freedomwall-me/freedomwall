@@ -87,8 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="form-outline mb-4">
 								<label class="form-label" for="username">Username</label>
 								<input type="text" name="username" class="form-control <?php if ($invalidUsername) {
-    echo "is-invalid";
-} ?>" required>
+								    echo "is-invalid";
+								} ?>" required>
 								<div class="invalid-feedback">
 									<?= $invalidUsername ? 'This username has been taken.' : 'Please fill out this field.' ?>
 								</div>
@@ -96,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="form-outline mb-4">
 								<label class="form-label" for="email">Email</label>
 								<input type="email" name="email" class="form-control <?php if ($invalidEmail) {
-    echo "is-invalid";
-} ?>" required>
+								    echo "is-invalid";
+								} ?>" required>
 								<div class="invalid-feedback">
 									<?= $invalidEmail ? 'This email is already being used by another account.' : 'Please fill out this field.' ?>
 								</div>
