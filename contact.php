@@ -6,6 +6,9 @@ use PHPMailer\PHPMailer\Exception;
 
 session_start();
 
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+$dotenv->load();
+
 $error = false;
 $submitted = false;
 
