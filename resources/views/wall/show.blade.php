@@ -1,3 +1,4 @@
+@php use GrahamCampbell\Markdown\Facades\Markdown; @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -5,27 +6,27 @@
         <div class="justify-content-between">
             <h1>{{ $wall->title }}</h1>
         </div>
-        <small class="text-muted">Published on {{ $wall->created_at }}</small>
+        <small class="text-muted">{{ __('Published on ') . $wall->created_at }}</small>
         @if ($wall->publish_status == 'draft')
             <strong>
-                <small class="text-muted">This work is only visible to you. Publish it for other people to see this
-                    work.</small>
+                <small class="text-muted">{{ __('This work is only visible to you. Publish it for other people to see this
+                    work.') }}</small>
             </strong>
         @endif
         <div>
             @if ($wall->publish_status == 'draft')
-                <span class="badge text-bg-warning">Draft</span>
+                <span class="badge text-bg-warning">{{ __('Draft') }}</span>
             @endif
-            @foreach (json_decode($wall->tags, true) as $obj)
-                <span class="badge text-bg-secondary">
+            @if ($wall->tags != null)
+                @foreach (json_decode($wall->tags, true) as $obj)
+                    <span class="badge text-bg-secondary">
                     {{ $obj['value'] }}
                 </span>
-            @endforeach
+                @endforeach
+            @endif
         </div>
         <div class="mt-3">
-            @markdown
-            {{ bzdecompress($wall->body)  }}
-            @endmarkdown
+            {!! Markdown::convert(bzdecompress($wall->body))->getContent() !!}
         </div>
     </div>
 @endsection

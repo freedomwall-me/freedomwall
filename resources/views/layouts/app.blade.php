@@ -11,9 +11,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+    @yield('head')
 </head>
 <body>
 <div id="app">
@@ -65,5 +69,7 @@
         </div>
     </main>
 </div>
+
+@yield('dload')
 </body>
 </html>

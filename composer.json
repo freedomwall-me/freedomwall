@@ -1,8 +1,12 @@
 {
-    "name": "laravel/laravel",
+    "name": "bg117/freedomwall",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The freedomwall",
+    "keywords": [
+        "freedom",
+        "wall",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",

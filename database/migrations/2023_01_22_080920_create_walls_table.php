@@ -23,7 +23,7 @@ class CreateWallsTable extends Migration
             // foreign key to user.id (on delete cascade)
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->json('tags');
+            $table->json('tags')->nullable();
             $table->binary('body'); // bz2 compressed
             $table->enum('publish_status', $this->publish_status);
             $table->timestamps();

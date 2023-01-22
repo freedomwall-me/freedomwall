@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends BaseController
 {
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function home()
     {
@@ -26,7 +28,10 @@ class IndexController extends BaseController
         return view('privacy');
     }
 
-    public function profile(){
-        return view('profile');
+    public function profile()
+    {
+        // get walls of the user
+        $walls = Auth::user()->walls()->orderBy('updated_date', 'desc')->paginate(20);
+        return view('profile', ['walls' => $walls]);
     }
 }
