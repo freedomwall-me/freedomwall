@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\WallController;
+use Illuminate\Routing\Controller as BaseController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends WallController
+class RegisterController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -59,14 +60,14 @@ class RegisterController extends WallController
      * Create a new user instance after a valid registration.
      *
      *
-     * @param  array  $data
-     * @return \App\Models\User
+     * @param  array  $request
+     * @return User
      */
-    protected function register(array $data)
+    protected function create(array $request)
     {
         return User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
         ]);
     }
 }

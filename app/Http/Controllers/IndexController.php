@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
-class IndexController extends WallController
+class IndexController extends BaseController
 {
-
     /**
      * Show the application dashboard.
      *

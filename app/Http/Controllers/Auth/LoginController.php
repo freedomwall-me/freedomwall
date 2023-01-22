@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\WallController;
+use Illuminate\Routing\Controller as BaseController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends WallController
+class LoginController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------

@@ -1,6 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\WallController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\IndexController::class, 'home'])->name('home');
-Route::get('/contact', [App\Http\Controllers\IndexController::class, 'contact'])->name('contact');
-Route::get('/privacy', [App\Http\Controllers\IndexController::class, 'privacy'])->name('privacy');
-Route::get('/profile', [App\Http\Controllers\IndexController::class, 'profile'])->name('profile');
+Route::get('/', [IndexController::class, 'home'])->name('home');
+Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
+Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
+Route::get('/profile', [IndexController::class, 'profile'])->name('profile');
 
-Route::resource('wall', App\Http\Controllers\WallController::class);
+Route::resource('/wall', WallController::class);
 
 Auth::routes();
-
-
