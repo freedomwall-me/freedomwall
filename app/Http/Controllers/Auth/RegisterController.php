@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Routing\Controller as BaseController;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -45,7 +45,7 @@ class RegisterController extends BaseController
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -60,14 +60,16 @@ class RegisterController extends BaseController
      * Create a new user instance after a valid registration.
      *
      *
-     * @param  array  $request
+     * @param array $request
      * @return User
      */
     protected function create(array $request)
     {
-        return User::create([
+        $user = User::create([
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
+        event(new Registered($user));
+        return $user;
     }
 }

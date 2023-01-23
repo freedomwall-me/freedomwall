@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\WallController;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +20,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
-Route::get('/profile', [IndexController::class, 'profile'])->name('profile');
+Route::get('/profile', [IndexController::class, 'profile'])->name('profile')->middleware('verified');
 
 Route::resource('/wall', WallController::class);
 
-Auth::routes();
+Route::post('/mail-subsystem', [EmailController::class, 'store'])->name('email.store');
+
+Route::get('/email/verify', [VerificationController::class, 'show'])
+    ->middleware('auth')
+    ->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.resend');
+
+Auth::routes(['verify' => true]);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DeleteWallRequest;
 use App\Http\Requests\StoreWallRequest;
 use App\Http\Requests\UpdateWallRequest;
 use App\Models\Wall;
@@ -19,6 +18,7 @@ class WallController extends BaseController
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('verified', ['except' => ['index', 'show']]);
     }
 
     protected function index()
@@ -54,7 +54,7 @@ class WallController extends BaseController
         $wall->publish_status = $valid['publish_status'];
         $wall->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Wall created successfully!');
     }
 
     protected function edit(int $id)
@@ -77,7 +77,7 @@ class WallController extends BaseController
         $wall->publish_status = $valid['publish_status'] ?? $wall->publish_status;
         $wall->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Wall updated successfully!');
     }
 
     protected function destroy(int $id)

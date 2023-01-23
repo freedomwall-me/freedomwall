@@ -7,6 +7,11 @@
 
 @section('content')
     <h1 class="mb-4">{{ __("Edit Wall #$wall->id") }}</h1>
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <form method="POST" action="{{ route('wall.update', $wall->id) }}">
         @csrf
         @method('PUT')
