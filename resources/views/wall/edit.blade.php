@@ -33,10 +33,10 @@
         </div>
         @enderror
         <div class="mt-3">
-            <button type="submit" class="btn btn-success btn-lg" name="publish_status" value="published">
+            <button type="submit" class="btn btn-primary btn-lg" name="publish_status" value="published">
                 {{ __('Publish') }}
             </button>
-            <button type="submit" class="btn btn-outline-success btn-lg" name="publish_status" value="draft">
+            <button type="submit" class="btn btn-outline-primary btn-lg" name="publish_status" value="draft">
                 {{ __('Save as Draft') }}
             </button>
         </div>

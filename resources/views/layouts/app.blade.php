@@ -25,7 +25,7 @@
         <span class="site-brand">freedomwall.me</span> {{ __('is still in') }} <strong>beta</strong>.
         {{  __('You will lose your account at the time of release.') }}
     </div>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar sticky-top navbar-expand-lg bg-primary">
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand">
                 <svg width="32" height="32" class="me-2">

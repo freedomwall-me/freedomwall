@@ -4,7 +4,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-baseline">
         <h1 class="mb-4">{{ __('My Walls') }}</h1>
-        <a href="{{ route('wall.create') }}" class="btn btn-success">{{ __('Create') }}</a>
+        <a href="{{ route('wall.create') }}" class="btn btn-primary">{{ __('Create') }}</a>
     </div>
     @foreach ($walls as $wall)
         <div class="card mb-3">

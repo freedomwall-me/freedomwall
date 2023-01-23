@@ -22,11 +22,11 @@
     <div class="row">
         <div class="col border-end">
             <h4 class="mb-3">Start browsing walls made by other users</h4>
-            <a class="btn btn-success btn-lg" href="{{ route('wall.index') }}">Browse</a>
+            <a class="btn btn-primary btn-lg" href="{{ route('wall.index') }}">Browse</a>
         </div>
         <div class="col">
             <h4 class="mb-3">Or, create one yourself</h4>
-            <a class="btn btn-success btn-lg" href="{{ route('wall.create') }}">
+            <a class="btn btn-primary btn-lg" href="{{ route('wall.create') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
                      viewBox="0 0 16 16">
                     <path
