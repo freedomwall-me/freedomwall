@@ -1,0 +1,37 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://db.onlinewebfonts.com/c/c7fb97e690c1473593032429cb30b5c5?family=Separat');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.site-brand {
+    font-family: Separat;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.nav-link:hover,
+.btn:hover,
+.navbar-brand:hover {
+    text-decoration: none;
+}
+
+a.no-decor {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.no-decor:hover {
+    text-decoration: none;
+    color: inherit;
+}
