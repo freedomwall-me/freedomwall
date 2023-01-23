@@ -19,3 +19,19 @@ a:link {
 a:hover {
     text-decoration: underline;
 }
+
+.nav-link:hover,
+.btn:hover,
+.navbar-brand:hover {
+    text-decoration: none;
+}
+
+a.no-decor {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.no-decor:hover {
+    text-decoration: none;
+    color: inherit;
+}

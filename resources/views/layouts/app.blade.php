@@ -27,38 +27,39 @@
     </div>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
         <div class="container">
-            <a href="{{ route('home') }}" class="navbar-brand site-brand">
+            <a href="{{ route('home') }}" class="navbar-brand">
                 <svg width="32" height="32" class="me-2">
                     <image href="{{ asset('svg/logo.svg') }}" width="32" height="32"></image>
                 </svg>
-                freedomwall.me
+                <span class="site-brand">
+                    freedomwall.me
+                </span>
             </a>
+
 
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav me-auto">
                     <a class="nav-item nav-link active" href="{{ route('contact') }}">{{ __('Feedback') }}</a>
                     <a class="nav-item nav-link active" href="{{ route('privacy') }}">{{ __('Privacy Notice') }}</a>
                 </div>
-            </div>
-
-            <div class="navbar-nav ms-auto">
-                @auth
-                    <a class="nav-item nav-link active" href="{{ route('profile') }}">{{ __('Profile') }}</a>
-                    <a class="nav-item nav-link active" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="nav-item nav-link active">{{ __('Log in') }}</a>
-                    <a href="{{ route('register') }}" class="nav-item nav-link active">{{ __('Register') }}</a>
-                @endauth
+                <div class="navbar-nav ms-auto">
+                    @auth
+                        <a class="nav-item nav-link active" href="{{ route('profile') }}">{{ __('Profile') }}</a>
+                        <a class="nav-item nav-link active" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-item nav-link active">{{ __('Log in') }}</a>
+                        <a href="{{ route('register') }}" class="nav-item nav-link active">{{ __('Register') }}</a>
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>
@@ -70,6 +71,11 @@
     </main>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('table').addClass('table table-striped table-bordered table-hover table-sm');
+    });
+</script>
 @yield('dload')
 </body>
 </html>

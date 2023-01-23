@@ -3,8 +3,12 @@
 
 @section('content')
     <div class="row">
-        <div class="justify-content-between">
+        <div class="d-flex justify-content-between">
             <h1>{{ $wall->title }}</h1>
+            <!-- check if the user is the owner of the wall -->
+            @if (Auth::user()->id == $wall->user_id)
+                @include('templates.actions')
+            @endif
         </div>
         <small class="text-muted">{{ __('Published on ') . $wall->created_at }}</small>
         @if ($wall->publish_status == 'draft')

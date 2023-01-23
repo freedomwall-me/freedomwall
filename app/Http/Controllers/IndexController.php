@@ -31,7 +31,7 @@ class IndexController extends BaseController
     public function profile()
     {
         // get walls of the user
-        $walls = Auth::user()->walls()->orderBy('updated_date', 'desc')->paginate(20);
+        $walls = Auth::user()->walls()->orderBy('id', 'desc')->paginate(20);
         return view('profile', ['walls' => $walls]);
     }
 }

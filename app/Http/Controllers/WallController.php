@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteWallRequest;
+use App\Http\Requests\StoreWallRequest;
+use App\Http\Requests\UpdateWallRequest;
 use App\Models\Wall;
+use Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class WallController extends BaseController
@@ -18,20 +21,6 @@ class WallController extends BaseController
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    protected function validateRequest(Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'publish_status' => 'required|in:draft,published',
-        ]);
-    }
-
-    protected function done()
-    {
-        return redirect()->route('wall.index');
-    }
-
     protected function index()
     {
         // four each row, five rows ordered by updated_date from newest to oldest
@@ -41,7 +30,10 @@ class WallController extends BaseController
 
     protected function show(int $id)
     {
-        $wall = Wall::find($id);
+        $wall = Wall::findOrFail($id);
+        // if the wall is draft and the user is not the owner, throw 403
+        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::user()->id)
+            abort(403);
         return view('wall.show', ['wall' => $wall]);
     }
 
@@ -50,45 +42,51 @@ class WallController extends BaseController
         return view('wall.create');
     }
 
-    protected function store(Request $request)
+    protected function store(StoreWallRequest $request)
     {
-        $this->validateRequest($request);
+        $valid = $request->validated();
 
         $wall = new Wall();
-        $wall->user_id = \Auth::user()->id;
-        $wall->title = $request->title;
-        $wall->tags = $request->tags;
-        $wall->body = bzcompress($request->body);
-        $wall->publish_status = $request->publish_status;
+        $wall->user_id = Auth::user()->id;
+        $wall->title = $valid['title'];
+        $wall->tags = $valid['tags'];
+        $wall->body = bzcompress($valid['body']);
+        $wall->publish_status = $valid['publish_status'];
         $wall->save();
 
-        return $this->done();
+        return redirect()->back();
     }
 
     protected function edit(int $id)
     {
-        $wall = Wall::find($id);
+        $wall = Wall::findOrFail($id);
+        // if the user is not the owner, throw 403
+        if ($wall->user_id != Auth::user()->id)
+            abort(403);
         return view('wall.edit', ['wall' => $wall]);
     }
 
-    protected function update(Request $request, int $id)
+    protected function update(UpdateWallRequest $request, int $id)
     {
-        $this->validateRequest($request);
+        $valid = $request->validated();
 
-        $wall = Wall::find($id);
-        $wall->title = $request->title;
-        $wall->tags = $request->tags;
-        $wall->body = bzcompress($request->body);
+        $wall = Wall::findOrFail($id);
+        $wall->title = $valid['title'] ?? $wall->title;
+        $wall->tags = $valid['tags'] ?? $wall->tags;
+        $wall->body = isset($valid['body']) ? bzcompress($valid['body']) : $wall->body; // if body is not set
+        $wall->publish_status = $valid['publish_status'] ?? $wall->publish_status;
         $wall->save();
 
-        return $this->done();
+        return redirect()->back();
     }
 
     protected function destroy(int $id)
     {
-        $wall = Wall::find($id);
-        $wall->delete();
+        $wall = Wall::findOrFail($id);
+        if (Auth::user()->id != $wall->user_id)
+            abort(403);
 
-        return $this->done();
+        $wall->delete();
+        return redirect()->route('wall.index');
     }
 }

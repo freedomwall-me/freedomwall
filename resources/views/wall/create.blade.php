@@ -9,17 +9,19 @@
     <h1 class="mb-4">{{ __('Create a Wall') }}</h1>
     <form method="POST" action="{{ route('wall.store') }}">
         @csrf
-        <input type="text" name="title" class="form-control form-control-lg @error('title') is-invalid @enderror"
+        <label for="title">{{ __('Title') }}</label>
+        <input type="text" name="title" class="form-control form-control-lg mb-2 @error('title') is-invalid @enderror"
                placeholder="{{ __('Think of a good title...') }}">
         @error('title')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
+        <label for="tags">{{ __('Tags') }}</label>
         <input type="text" name="tags"
                class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
 
-        <textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror"></textarea>
+        <label for="body">{{ __('Body') }}</label><textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror"></textarea>
         @error('body')
         <div class="invalid-feedback">
             {{ $message }}

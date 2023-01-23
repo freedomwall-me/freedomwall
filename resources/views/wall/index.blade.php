@@ -1,3 +1,4 @@
+@php use GrahamCampbell\Markdown\Facades\Markdown; @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -29,28 +30,36 @@
                     @endif
                     <!-- 4 columns -->
                     <div class="col-3">
+
                         <div class="card h-100">
                             <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="{{ route('wall.show', $wall->id) }}">
-                                        {{ $wall->title }}
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ route('wall.show', $wall->id) }}" class="no-decor">
+                                        <h4 class="card-title">{{ $wall->title }}</h4>
                                     </a>
-                                </h4>
-                                <!-- tags -->
-                                @if ($wall->tags != null)
-                                    <div class="card-subtitle mb-2">
-                                        @foreach (json_decode($wall->tags, true) as $obj)
-                                            <span class="badge text-bg-secondary">
+                                    <!-- check if the user is the owner of the wall -->
+                                    @if (Auth::user()->id == $wall->user_id)
+                                        @include('templates.actions')
+                                    @endif
+                                </div>
+                                <a href="{{ route('wall.show', $wall->id) }}" class="no-decor">
+                                    <!-- tags -->
+                                    @if ($wall->tags != null)
+                                        <div class="card-subtitle mb-2">
+                                            @foreach (json_decode($wall->tags, true) as $obj)
+                                                <span class="badge text-bg-secondary">
                                             {{ $obj['value'] }}
                                         </span>
-                                        @endforeach
-                                    </div>
-                                @endif
-                                <p class="card-text">
-                                    {{ Str::limit(bzdecompress($wall->body), 1000) }}
-                                </p>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    <p class="card-text">
+                                        {!! Markdown::convert(Str::limit(bzdecompress($wall->body), 1000))->getContent() !!}
+                                    </p>
+                                </a>
                             </div>
                         </div>
+
                     </div>
                     @if ($i % 4 == 3 || $i == $count - 1)
                 </div>
