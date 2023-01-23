@@ -17,15 +17,18 @@
                 </div>
                 <a href="{{ route('wall.show', $wall->id) }}" class="no-decor">
                     <!-- tags -->
-                    @if ($wall->tags != null)
-                        <div class="card-subtitle mb-2">
+                    <div class="card-subtitle mb-2">
+                        @if ($wall->publish_status == 'draft')
+                            <span class="badge text-bg-warning">{{ __('Draft') }}</span>
+                        @endif
+                        @if ($wall->tags != null)
                             @foreach (json_decode($wall->tags, true) as $obj)
                                 <span class="badge text-bg-secondary">
-                            {{ $obj['value'] }}
-                            </span>
+                                    {{ $obj['value'] }}
+                                </span>
                             @endforeach
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                     <p class="card-text">
                         {!! Markdown::convert(Str::limit(bzdecompress($wall->body), 1000))->getContent() !!}
                     </p>
