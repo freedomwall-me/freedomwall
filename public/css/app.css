@@ -1,7 +1,5 @@
-@import url(https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap);
-@import url(https://db.onlinewebfonts.com/c/c7fb97e690c1473593032429cb30b5c5?family=Separat);
-@charset "UTF-8";
-/*!
+@import url(https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Unbounded:wght@400;500;600;700&display=swap);
+@charset "UTF-8"; /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
  * Copyright 2011-2022 Twitter, Inc.
@@ -31,9 +29,9 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #68B984;
-  --bs-secondary: #3D5656;
-  --bs-success: #03C988;
+  --bs-primary: #68b984;
+  --bs-secondary: #3d5656;
+  --bs-success: #03c988;
   --bs-danger: #ef476f;
   --bs-warning: #ffbc42;
   --bs-info: #4ea8de;
@@ -2842,8 +2840,8 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #000;
-  --bs-btn-bg: #68B984;
-  --bs-btn-border-color: #68B984;
+  --bs-btn-bg: #68b984;
+  --bs-btn-border-color: #68b984;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #7fc496;
   --bs-btn-hover-border-color: #77c090;
@@ -2853,14 +2851,14 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: #77c090;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #68B984;
-  --bs-btn-disabled-border-color: #68B984;
+  --bs-btn-disabled-bg: #68b984;
+  --bs-btn-disabled-border-color: #68b984;
 }
 
 .btn-secondary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #3D5656;
-  --bs-btn-border-color: #3D5656;
+  --bs-btn-bg: #3d5656;
+  --bs-btn-border-color: #3d5656;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #344949;
   --bs-btn-hover-border-color: #314545;
@@ -2870,14 +2868,14 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: #2e4141;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #3D5656;
-  --bs-btn-disabled-border-color: #3D5656;
+  --bs-btn-disabled-bg: #3d5656;
+  --bs-btn-disabled-border-color: #3d5656;
 }
 
 .btn-success {
   --bs-btn-color: #000;
-  --bs-btn-bg: #03C988;
-  --bs-btn-border-color: #03C988;
+  --bs-btn-bg: #03c988;
+  --bs-btn-border-color: #03c988;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #29d19a;
   --bs-btn-hover-border-color: #1cce94;
@@ -2887,8 +2885,8 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: #1cce94;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #03C988;
-  --bs-btn-disabled-border-color: #03C988;
+  --bs-btn-disabled-bg: #03c988;
+  --bs-btn-disabled-border-color: #03c988;
 }
 
 .btn-danger {
@@ -2977,53 +2975,53 @@ textarea.form-control-lg {
 }
 
 .btn-outline-primary {
-  --bs-btn-color: #68B984;
-  --bs-btn-border-color: #68B984;
+  --bs-btn-color: #68b984;
+  --bs-btn-border-color: #68b984;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #68B984;
-  --bs-btn-hover-border-color: #68B984;
+  --bs-btn-hover-bg: #68b984;
+  --bs-btn-hover-border-color: #68b984;
   --bs-btn-focus-shadow-rgb: 104, 185, 132;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #68B984;
-  --bs-btn-active-border-color: #68B984;
+  --bs-btn-active-bg: #68b984;
+  --bs-btn-active-border-color: #68b984;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #68B984;
+  --bs-btn-disabled-color: #68b984;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #68B984;
+  --bs-btn-disabled-border-color: #68b984;
   --bs-gradient: none;
 }
 
 .btn-outline-secondary {
-  --bs-btn-color: #3D5656;
-  --bs-btn-border-color: #3D5656;
+  --bs-btn-color: #3d5656;
+  --bs-btn-border-color: #3d5656;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #3D5656;
-  --bs-btn-hover-border-color: #3D5656;
+  --bs-btn-hover-bg: #3d5656;
+  --bs-btn-hover-border-color: #3d5656;
   --bs-btn-focus-shadow-rgb: 61, 86, 86;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #3D5656;
-  --bs-btn-active-border-color: #3D5656;
+  --bs-btn-active-bg: #3d5656;
+  --bs-btn-active-border-color: #3d5656;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #3D5656;
+  --bs-btn-disabled-color: #3d5656;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #3D5656;
+  --bs-btn-disabled-border-color: #3d5656;
   --bs-gradient: none;
 }
 
 .btn-outline-success {
-  --bs-btn-color: #03C988;
-  --bs-btn-border-color: #03C988;
+  --bs-btn-color: #03c988;
+  --bs-btn-border-color: #03c988;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #03C988;
-  --bs-btn-hover-border-color: #03C988;
+  --bs-btn-hover-bg: #03c988;
+  --bs-btn-hover-border-color: #03c988;
   --bs-btn-focus-shadow-rgb: 3, 201, 136;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #03C988;
-  --bs-btn-active-border-color: #03C988;
+  --bs-btn-active-bg: #03c988;
+  --bs-btn-active-border-color: #03c988;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #03C988;
+  --bs-btn-disabled-color: #03c988;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #03C988;
+  --bs-btn-disabled-border-color: #03c988;
   --bs-gradient: none;
 }
 
@@ -6692,21 +6690,21 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-  color: #68B984 !important;
+  color: #68b984 !important;
 }
 .link-primary:hover, .link-primary:focus {
   color: #86c79d !important;
 }
 
 .link-secondary {
-  color: #3D5656 !important;
+  color: #3d5656 !important;
 }
 .link-secondary:hover, .link-secondary:focus {
   color: #314545 !important;
 }
 
 .link-success {
-  color: #03C988 !important;
+  color: #03c988 !important;
 }
 .link-success:hover, .link-success:focus {
   color: #35d4a0 !important;
@@ -10822,30 +10820,30 @@ textarea.form-control-lg {
   }
 }
 .site-brand {
-  font-family: Separat;
+    font-family: Unbounded;
 }
 
-a:link {
-  text-decoration: none;
+a {
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .nav-link:hover,
 .btn:hover,
 .navbar-brand:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 a.no-decor {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 a.no-decor:hover {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 

@@ -4,18 +4,18 @@ $body-color: #131515;
 
 // primary, secondary, success, danger, warning, info, light, dark
 $theme-colors: (
-    "primary": #68B984,
-    "secondary": #3D5656,
-    "success": #03C988,
+    "primary": #68b984,
+    "secondary": #3d5656,
+    "success": #03c988,
     "danger": #ef476f,
     "warning": #ffbc42,
     "info": #4ea8de,
     "light": #f9f9f9,
-    "dark": #131515
+    "dark": #131515,
 );
 
 // Typography
-$font-family-sans-serif: 'Lato', sans-serif;
-$font-family-monospace: 'Inconsolata', monospace;
+$font-family-sans-serif: "Lato", sans-serif;
+$font-family-monospace: "Inconsolata", monospace;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;

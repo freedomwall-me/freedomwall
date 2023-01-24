@@ -28,8 +28,8 @@
     <nav class="navbar sticky-top navbar-expand-lg bg-primary">
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <svg width="32" height="32" class="me-2">
-                    <image href="{{ asset('svg/logo.svg') }}" width="32" height="32"></image>
+                <svg width="40" height="40" class="me-2">
+                    <image href="{{ asset('svg/logo.svg') }}" width="40" height="40"></image>
                 </svg>
                 <span class="site-brand">
                     freedomwall.me
