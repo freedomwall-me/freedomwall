@@ -6,11 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailable\Envelope;
 use Illuminate\Queue\SerializesModels;
+
 use function config;
 
 class UserFeedbackMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     protected $data;
 

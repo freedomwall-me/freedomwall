@@ -9,7 +9,8 @@ use Illuminate\Queue\SerializesModels;
 
 class FeedbackSentMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     protected $data;
 
