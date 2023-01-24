@@ -10,6 +10,11 @@
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
+            @if (session()->has('wall_id'))
+                <a href="{{ route('wall.show', session()->get('wall_id')) }}">
+                    <strong>View Wall</strong>
+                </a>
+            @endif
         </div>
     @endif
     <form method="POST" action="{{ route('wall.update', $wall->id) }}">
@@ -29,9 +34,7 @@
 
         <label for="body">{{ __('Body') }}</label>
         <textarea id="body" name="body"
-                  class="form-control @error('body') is-invalid @enderror">
-            {{ bzdecompress($wall->body) }}
-        </textarea>
+                  class="form-control @error('body') is-invalid @enderror">{{ bzdecompress($wall->body) }}</textarea>
         @error('body')
         <div class="invalid-feedback">
             {{ $message }}
