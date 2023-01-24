@@ -18,4 +18,4 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('autoprefixer'),
     ])
-    .sourceMaps();
+    .sourceMaps(false);
