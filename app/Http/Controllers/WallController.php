@@ -57,7 +57,10 @@ class WallController extends BaseController
         $wall->publish_status = $valid['publish_status'];
         $wall->save();
 
-        return redirect()->back()->with('success', 'Wall created successfully!');
+        return redirect()
+                ->back()
+                ->with('success', 'Wall created successfully!')
+                ->with('wall_id', $wall->id);
     }
 
     protected function edit(int $id)
@@ -81,7 +84,10 @@ class WallController extends BaseController
         $wall->publish_status = $valid['publish_status'] ?? $wall->publish_status;
         $wall->save();
 
-        return redirect()->back()->with('success', 'Wall updated successfully!');
+        return redirect()
+                ->back()
+                ->with('success', 'Wall updated successfully!')
+                ->with('wall_id', $wall->id);
     }
 
     protected function destroy(int $id)
