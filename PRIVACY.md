@@ -4,8 +4,8 @@
 
 This privacy notice for FreedomWall ("**Company**," "**we**," "**us**," or "**our**"), describes how and why we might collect, store, use, and/or share ("**process**") your information when you use our services ("**Services**"), such as when you:
 
-- Visit our website at [https://freedomwall.me](https://freedomwall.me), or any website of ours that links to this privacy notice
-- Engage with us in other related ways, including any sales, marketing, or events
+-   Visit our website at [https://freedomwall.me](https://freedomwall.me), or any website of ours that links to this privacy notice
+-   Engage with us in other related ways, including any sales, marketing, or events
 
 **Questions or concerns?** Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at [support@freedomwall.me](mailto:support@freedomwall.me).
 
@@ -13,13 +13,13 @@ This privacy notice for FreedomWall ("**Company**," "**we**," "**us**," or "**ou
 
 **_This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click [here](#toc) to go directly to our table of contents._**
 
-- **What personal information do we process?** When you visit, use, or navigate our Services, we may process personal information depending on how you interact with FreedomWall and the Services, the choices you make, and the products and features you use. Click [here](#personalinfo) to learn more.
-- **Do we process any sensitive personal information?** We do not process sensitive personal information.
-- **Do we receive any information from third parties?** We do not receive any information from third parties.
-- **How do we process your information?** We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Click [here](#infouse) to learn more.
-- **In what situations and with which parties do we share personal information?** We may share information in specific situations and with specific third parties. Click [here](#whoshare) to learn more.
-- **How do we keep your information safe?** We have organizational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Click [here](#infosafe) to learn more.
-- **What are your rights?** Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Click [here](#privacyrights) to learn more. **How do you exercise your rights?** The easiest way to exercise your rights is by filling out our data subject request form available here: [https://freedomwall.me/contact](https://freedomwall.me/contact), or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws. Want to learn more about what FreedomWall does with any information we collect? Click [here](#toc) to review the notice in full.
+-   **What personal information do we process?** When you visit, use, or navigate our Services, we may process personal information depending on how you interact with FreedomWall and the Services, the choices you make, and the products and features you use. Click [here](#personalinfo) to learn more.
+-   **Do we process any sensitive personal information?** We do not process sensitive personal information.
+-   **Do we receive any information from third parties?** We do not receive any information from third parties.
+-   **How do we process your information?** We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Click [here](#infouse) to learn more.
+-   **In what situations and with which parties do we share personal information?** We may share information in specific situations and with specific third parties. Click [here](#whoshare) to learn more.
+-   **How do we keep your information safe?** We have organizational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Click [here](#infosafe) to learn more.
+-   **What are your rights?** Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Click [here](#privacyrights) to learn more. **How do you exercise your rights?** The easiest way to exercise your rights is by filling out our data subject request form available here: [https://freedomwall.me/contact](https://freedomwall.me/contact), or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws. Want to learn more about what FreedomWall does with any information we collect? Click [here](#toc) to review the notice in full.
 
 ## TABLE OF CONTENTS
 
@@ -48,9 +48,9 @@ We collect personal information that you voluntarily provide to us when you regi
 
 The personal information that we collect depends on the context of your interactions with us and the Services, the choices you make, and the products and features you use. The personal information we collect may include the following:
 
-- email addresses
-- usernames
-- passwords
+-   email addresses
+-   usernames
+-   passwords
 
 ### Sensitive Information.
 
@@ -62,12 +62,12 @@ _**In Short:** We process your information to provide, improve, and administer o
 
 **We process your personal information for a variety of reasons, depending on how you interact with our Services, including:**
 
-- **To facilitate account creation and authentication and otherwise manage user accounts.** We may process your information so you can create and log in to your account, as well as keep your account in working order.
-- **To deliver and facilitate delivery of services to the user.** We may process your information to provide you with the requested service.
-- **To respond to user inquiries/offer support to users.** We may process your information to respond to your inquiries and solve any potential issues you might have with the requested service.
-- **To send administrative information to you.** We may process your information to send you details about our products and services, changes to our terms and policies, and other similar information.
-- **To protect our Services.** We may process your information as part of our efforts to keep our Services safe and secure, including fraud monitoring and prevention.
-- **To save or protect an individual's vital interest.** We may process your information when necessary to save or protect an individual’s vital interest, such as to prevent harm.
+-   **To facilitate account creation and authentication and otherwise manage user accounts.** We may process your information so you can create and log in to your account, as well as keep your account in working order.
+-   **To deliver and facilitate delivery of services to the user.** We may process your information to provide you with the requested service.
+-   **To respond to user inquiries/offer support to users.** We may process your information to respond to your inquiries and solve any potential issues you might have with the requested service.
+-   **To send administrative information to you.** We may process your information to send you details about our products and services, changes to our terms and policies, and other similar information.
+-   **To protect our Services.** We may process your information as part of our efforts to keep our Services safe and secure, including fraud monitoring and prevention.
+-   **To save or protect an individual's vital interest.** We may process your information when necessary to save or protect an individual’s vital interest, such as to prevent harm.
 
 ## 3\. WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR INFORMATION?
 
@@ -77,13 +77,13 @@ _**If you are located in the EU or UK, this section applies to you.**_
 
 The General Data Protection Regulation (GDPR) and UK GDPR require us to explain the valid legal bases we rely on in order to process your personal information. As such, we may rely on the following legal bases to process your personal information:
 
-- **Consent.** We may process your information if you have given us permission (i.e., consent) to use your personal information for a specific purpose. You can withdraw your consent at any time. Click [here](#withdrawconsent) to learn more.
-- **Performance of a Contract.** We may process your personal information when we believe it is necessary to fulfill our contractual obligations to you, including providing our Services or at your request prior to entering into a contract with you.
-- **Legitimate Interests.** We may process your information when we believe it is reasonably necessary to achieve our legitimate business interests and those interests do not outweigh your interests and fundamental rights and freedoms. For example, we may process your personal information for some of the purposes described in order to:
-- Diagnose problems and/or prevent fraudulent activities
-- **Legal Obligations.** We may process your information where we believe it is necessary for compliance with our legal obligations, such as to cooperate with a law enforcement body or regulatory agency, exercise or defend our legal rights, or disclose your information as evidence in litigation in which we are involved.
+-   **Consent.** We may process your information if you have given us permission (i.e., consent) to use your personal information for a specific purpose. You can withdraw your consent at any time. Click [here](#withdrawconsent) to learn more.
+-   **Performance of a Contract.** We may process your personal information when we believe it is necessary to fulfill our contractual obligations to you, including providing our Services or at your request prior to entering into a contract with you.
+-   **Legitimate Interests.** We may process your information when we believe it is reasonably necessary to achieve our legitimate business interests and those interests do not outweigh your interests and fundamental rights and freedoms. For example, we may process your personal information for some of the purposes described in order to:
+-   Diagnose problems and/or prevent fraudulent activities
+-   **Legal Obligations.** We may process your information where we believe it is necessary for compliance with our legal obligations, such as to cooperate with a law enforcement body or regulatory agency, exercise or defend our legal rights, or disclose your information as evidence in litigation in which we are involved.
 
-- **Vital Interests.** We may process your information where we believe it is necessary to protect your vital interests or the vital interests of a third party, such as situations involving potential threats to the safety of any person.
+-   **Vital Interests.** We may process your information where we believe it is necessary to protect your vital interests or the vital interests of a third party, such as situations involving potential threats to the safety of any person.
 
 **_If you are located in Canada, this section applies to you._**
 
@@ -91,17 +91,17 @@ We may process your information if you have given us specific permission (i.e., 
 
 In some exceptional cases, we may be legally permitted under applicable law to process your information without your consent, including, for example:
 
-- If collection is clearly in the interests of an individual and consent cannot be obtained in a timely way
-- For investigations and fraud detection and prevention
-- For business transactions provided certain conditions are met
-- If it is contained in a witness statement and the collection is necessary to assess, process, or settle an insurance claim
-- For identifying injured, ill, or deceased persons and communicating with next of kin
-- If we have reasonable grounds to believe an individual has been, is, or may be victim of financial abuse
-- If it is reasonable to expect collection and use with consent would compromise the availability or the accuracy of the information and the collection is reasonable for purposes related to investigating a breach of an agreement or a contravention of the laws of Canada or a province
-- If disclosure is required to comply with a subpoena, warrant, court order, or rules of the court relating to the production of records
-- If it was produced by an individual in the course of their employment, business, or profession and the collection is consistent with the purposes for which the information was produced
-- If the collection is solely for journalistic, artistic, or literary purposes
-- If the information is publicly available and is specified by the regulations
+-   If collection is clearly in the interests of an individual and consent cannot be obtained in a timely way
+-   For investigations and fraud detection and prevention
+-   For business transactions provided certain conditions are met
+-   If it is contained in a witness statement and the collection is necessary to assess, process, or settle an insurance claim
+-   For identifying injured, ill, or deceased persons and communicating with next of kin
+-   If we have reasonable grounds to believe an individual has been, is, or may be victim of financial abuse
+-   If it is reasonable to expect collection and use with consent would compromise the availability or the accuracy of the information and the collection is reasonable for purposes related to investigating a breach of an agreement or a contravention of the laws of Canada or a province
+-   If disclosure is required to comply with a subpoena, warrant, court order, or rules of the court relating to the production of records
+-   If it was produced by an individual in the course of their employment, business, or profession and the collection is consistent with the purposes for which the information was produced
+-   If the collection is solely for journalistic, artistic, or literary purposes
+-   If the information is publicly available and is specified by the regulations
 
 ## 4\. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?
 
@@ -109,7 +109,7 @@ _**In Short:** We may share information in specific situations described in this
 
 We may need to share your personal information in the following situations:
 
-- **Business Transfers.** We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
+-   **Business Transfers.** We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
 
 ## 5\. HOW LONG DO WE KEEP YOUR INFORMATION?
 
@@ -145,7 +145,7 @@ However, please note that this will not affect the lawfulness of the processing 
 
 If you would at any time like to review or change the information in your account or terminate your account, you can:
 
-- Contact us using the contact information provided.
+-   Contact us using the contact information provided.
 
 Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, we may retain some information in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our legal terms and/or comply with applicable legal requirements.
 
@@ -252,9 +252,9 @@ NO
 
 We may also collect other personal information outside of these categories through instances where you interact with us in person, online, or by phone or mail in the context of:
 
-- Receiving help through our customer support channels;
-- Participation in customer surveys or contests; and
-- Facilitation in the delivery of our Services and to respond to your inquiries.
+-   Receiving help through our customer support channels;
+-   Participation in customer surveys or contests; and
+-   Facilitation in the delivery of our Services and to respond to your inquiries.
 
 ### How do we use and share your personal information?
 
@@ -282,13 +282,13 @@ You can ask for the deletion of your personal information. If you ask us to dele
 
 Depending on the circumstances, you have a right to know:
 
-- whether we collect and use your personal information;
-- the categories of personal information that we collect;
-- the purposes for which the collected personal information is used;
-- whether we sell your personal information to third parties;
-- the categories of personal information that we sold or disclosed for a business purpose;
-- the categories of third parties to whom the personal information was sold or disclosed for a business purpose; and
-- the business or commercial purpose for collecting or selling personal information.
+-   whether we collect and use your personal information;
+-   the categories of personal information that we collect;
+-   the purposes for which the collected personal information is used;
+-   whether we sell your personal information to third parties;
+-   the categories of personal information that we sold or disclosed for a business purpose;
+-   the categories of third parties to whom the personal information was sold or disclosed for a business purpose; and
+-   the business or commercial purpose for collecting or selling personal information.
 
 In accordance with applicable law, we are not obligated to provide or delete consumer information that is de-identified in response to a consumer request or to re-identify individual data to verify a consumer request.
 
@@ -304,10 +304,10 @@ We will only use personal information provided in your request to verify your id
 
 #### Other privacy rights
 
-- You may object to the processing of your personal information.
-- You may request correction of your personal data if it is incorrect or no longer relevant, or ask to restrict the processing of the information.
-- You can designate an authorized agent to make a request under the CCPA on your behalf. We may deny a request from an authorized agent that does not submit proof that they have been validly authorized to act on your behalf in accordance with the CCPA.
-- You may request to opt out from future selling of your personal information to third parties. Upon receiving an opt-out request, we will act upon the request as soon as feasibly possible, but no later than fifteen (15) days from the date of the request submission.
+-   You may object to the processing of your personal information.
+-   You may request correction of your personal data if it is incorrect or no longer relevant, or ask to restrict the processing of the information.
+-   You can designate an authorized agent to make a request under the CCPA on your behalf. We may deny a request from an authorized agent that does not submit proof that they have been validly authorized to act on your behalf in accordance with the CCPA.
+-   You may request to opt out from future selling of your personal information to third parties. Upon receiving an opt-out request, we will act upon the request as soon as feasibly possible, but no later than fifteen (15) days from the date of the request submission.
 
 To exercise these rights, you can contact us by email at [support@freedomwall.me](mailto:support@freedomwall.me), by visiting [https://freedomwall.me/contact](https://freedomwall.me/contact), or by referring to the contact details at the bottom of this document. If you have a complaint about how we handle your data, we would like to hear from you.
 
