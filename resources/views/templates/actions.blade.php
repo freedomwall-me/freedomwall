@@ -10,15 +10,6 @@
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item no-decor" href="{{ route('wall.edit', $wall->id) }}">{{ __('Edit') }}</a>
-        <a class="dropdown-item no-decor link-danger" href="{{ route('wall.destroy', $wall->id) }}"
-           onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
-            {{ __('Delete') }}
-        </a>
-        <form id="delete-form" action="{{ route('wall.destroy', $wall->id) }}" method="POST"
-              style="display: none;">
-            @csrf
-            @method('DELETE')
-        </form>
         @if ($wall->publish_status == 'draft')
             <a class="dropdown-item no-decor link-success" href="{{ route('wall.update', $wall->id) }}"
                onclick="event.preventDefault(); document.getElementById('publish-form').submit();">
@@ -42,5 +33,17 @@
                 <input type="hidden" name="publish_status" value="draft">
             </form>
         @endif
+        <a class="dropdown-item no-decor link-danger" href="{{ route('wall.destroy', $wall->id) }}"
+           onclick="if (window.confirm('Are you sure? This action cannot be undone.')) {
+                        event.preventDefault();
+                        document.getElementById('delete-form').submit();
+                    }">
+            {{ __('Delete') }}
+        </a>
+        <form id="delete-form" action="{{ route('wall.destroy', $wall->id) }}" method="POST"
+              style="display: none;">
+            @csrf
+            @method('DELETE')
+        </form>
     </div>
 </div>
