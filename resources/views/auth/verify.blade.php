@@ -19,7 +19,7 @@
                         {{ __('Before proceeding, please check your email for a verification link.') }}
                         {{ __('If you did not receive the email') }},
                         <a href="{{ route('verification.resend') }}"
-                           onclick="event.preventDefault();
+                            onclick="event.preventDefault();
                                                      document.getElementById('vf-form').submit();">
                             {{ __('click here to request another') }}
                         </a>.

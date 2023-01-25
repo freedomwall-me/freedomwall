@@ -29,8 +29,9 @@
                             @endforeach
                         @endif
                     </div>
+                    @php $decomp = bzdecompress($wall->body); @endphp
                     <p class="card-text">
-                        {!! Markdown::convert(Str::limit(bzdecompress($wall->body), 1000))->getContent() !!}
+                        @markdown($decomp)
                     </p>
                 </a>
             </div>

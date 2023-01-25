@@ -19,21 +19,20 @@
         <div class="form-outline mb-3">
             <label class="form-label" for="email">{{ __('Email') }}</label>
             <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
-                   placeholder="name@example.com">
+                placeholder="name@example.com">
             @error('email')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
             @enderror
         </div>
         <div class="form-outline mb-4">
             <label class="form-label" for="body">{{ __('Content') }}</label>
-            <textarea name="body" class="form-control @error('body') is-invalid @enderror"
-                      style="min-height: 10em;"></textarea>
+            <textarea name="body" class="form-control @error('body') is-invalid @enderror" style="min-height: 10em;"></textarea>
             @error('body')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
             @enderror
         </div>
 

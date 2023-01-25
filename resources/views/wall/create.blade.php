@@ -21,21 +21,21 @@
         @csrf
         <label for="title">{{ __('Title') }}</label>
         <input type="text" name="title" class="form-control form-control-lg mb-2 @error('title') is-invalid @enderror"
-               placeholder="{{ __('Think of a good title...') }}">
+            placeholder="{{ __('Think of a good title...') }}">
         @error('title')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
         @enderror
         <label for="tags">{{ __('Tags') }}</label>
-        <input type="text" name="tags"
-               class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
+        <input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput">
 
-        <label for="body">{{ __('Body') }}</label><textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror"></textarea>
+        <label for="body">{{ __('Body') }}</label>
+        <textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror"></textarea>
         @error('body')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
         @enderror
         <div class="mt-3">
             <button type="submit" class="btn btn-primary btn-lg" name="publish_status" value="published">

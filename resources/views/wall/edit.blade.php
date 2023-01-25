@@ -22,23 +22,22 @@
         @method('PUT')
         <label for="title">{{ __('Title') }}</label>
         <input type="text" name="title" class="form-control form-control-lg mb-2 @error('title') is-invalid @enderror"
-               placeholder="{{ __('Think of a good title...') }}" value="{{ $wall->title }}">
+            placeholder="{{ __('Think of a good title...') }}" value="{{ $wall->title }}">
         @error('title')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
         @enderror
         <label for="tags">{{ __('Tags') }}</label>
-        <input type="text" name="tags"
-               class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput" value="{{ $wall->tags }}">
+        <input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput"
+            value="{{ $wall->tags }}">
 
         <label for="body">{{ __('Body') }}</label>
-        <textarea id="body" name="body"
-                  class="form-control @error('body') is-invalid @enderror">{{ bzdecompress($wall->body) }}</textarea>
+        <textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror">{{ bzdecompress($wall->body) }}</textarea>
         @error('body')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
         @enderror
         <div class="mt-3">
             <button type="submit" class="btn btn-primary btn-lg" name="publish_status" value="published">
