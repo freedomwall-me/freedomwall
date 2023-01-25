@@ -1,7 +1,8 @@
 version = 1
 
 exclude_patterns = [
-  "/public/js/app.js",
+  "/public/js/**",
+  "/public/css/**",
   "/public/index.php",
   "/index.php",
   "/server.php",
