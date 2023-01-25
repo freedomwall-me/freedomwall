@@ -1,5 +1,13 @@
 version = 1
 
+exclude_patterns = [
+  "/public/js/app.js",
+  "/public/index.php",
+  "/index.php",
+  "/server.php",
+  "/artisan"
+]
+
 [[analyzers]]
 name = "javascript"
 enabled = true
