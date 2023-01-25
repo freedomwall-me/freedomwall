@@ -51,8 +51,7 @@
             procedures in place to protect your personal information. However, no electronic transmission over the
             internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or
             guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our
-            security and improperly collect, access, steal, or modify your information. Click <a
-                href="#infosafe">here</a>
+            security and improperly collect, access, steal, or modify your information. Click <a href="#infosafe">here</a>
             to learn more.
         </li>
         <li><strong>What are your rights?</strong> Depending on where you are located geographically, the applicable
@@ -239,11 +238,11 @@
     <p> We will consider and act upon any request in accordance with applicable data protection laws. If you are located
         in the EEA or UK and you believe we are unlawfully processing your personal information, you also have the right
         to complain to your local data protection supervisory authority. You can find their contact details here: <a
-            href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
-            rel="noopener noreferrer"
+            href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm" rel="noopener noreferrer"
             target="_blank">https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm</a>. </p>
     <p> If you are located in Switzerland, the contact details for the data protection authorities are available here:
-        <a href="https://www.edoeb.admin.ch/edoeb/en/home.html" rel="noopener noreferrer" target="_blank">https://www.edoeb.admin.ch/edoeb/en/home.html</a>.
+        <a href="https://www.edoeb.admin.ch/edoeb/en/home.html" rel="noopener noreferrer"
+            target="_blank">https://www.edoeb.admin.ch/edoeb/en/home.html</a>.
     </p>
     <h3 id="withdrawconsent"> Withdrawing your consent </h3>
     <p> If we are relying on your consent to process your personal information, which may be express and/or implied
@@ -381,9 +380,9 @@
     <h3>How do we use and share your personal information?</h3>
     <p> More information about our data collection and sharing practices can be found in this privacy notice. </p>
     <p> You may contact us by email at <a href="mailto:support@freedomwall.me">support@freedomwall.me</a>, by visiting
-        <a
-            href="https://freedomwall.me/contact">https://freedomwall.me/contact</a>, or by referring to
-        the contact details at the bottom of this document. </p>
+        <a href="https://freedomwall.me/contact">https://freedomwall.me/contact</a>, or by referring to
+        the contact details at the bottom of this document.
+    </p>
     <p> If you are using an authorized agent to exercise your right to opt out we may deny a request if the authorized
         agent does not submit proof that they have been validly authorized to act on your behalf. </p>
     <h3>Will your information be shared with anyone else?</h3>
@@ -448,7 +447,8 @@
             fifteen (15) days from the date of the request submission.
         </li>
     </ul>
-    <p> To exercise these rights, you can contact us by email at <a href="mailto:support@freedomwall.me">support@freedomwall.me</a>,
+    <p> To exercise these rights, you can contact us by email at <a
+            href="mailto:support@freedomwall.me">support@freedomwall.me</a>,
         by visiting
         <a href="https://freedomwall.me/contact">https://freedomwall.me/contact</a>, or by referring to the contact
         details at the bottom of this document. If you have a

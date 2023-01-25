@@ -13,8 +13,9 @@
         <small class="text-muted">{{ __('Published on ') . $wall->created_at }}</small>
         @if ($wall->publish_status == 'draft')
             <strong>
-                <small class="text-muted">{{ __('This work is only visible to you. Publish it for other people to see this
-                    work.') }}</small>
+                <small
+                    class="text-muted">{{ __('This work is only visible to you. Publish it for other people to see this
+                                        work.') }}</small>
             </strong>
         @endif
         <div>
@@ -24,13 +25,18 @@
             @if ($wall->tags != null)
                 @foreach (json_decode($wall->tags, true) as $obj)
                     <span class="badge text-bg-secondary">
-                    {{ $obj['value'] }}
-                </span>
+                        {{ $obj['value'] }}
+                    </span>
                 @endforeach
             @endif
         </div>
         <div class="mt-3">
-            {!! Markdown::convert(bzdecompress($wall->body))->getContent() !!}
+            @php $decomp = bzdecompress($wall->body); @endphp
+            @markdown($decomp)
         </div>
     </div>
+@endsection
+
+@section('dload')
+    <script src="{{ asset('js/hljs.js') }}"></script>
 @endsection
