@@ -34,9 +34,9 @@ class WallController extends BaseController
     {
         $wall = Wall::findOrFail($id);
         // if the wall is draft and the user is not the owner, throw 403
-        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id()) {
+        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id())
             abort(403);
-        }
+
         return view('wall.show', ['wall' => $wall]);
     }
 
@@ -67,13 +67,9 @@ class WallController extends BaseController
     {
         $wall = Wall::findOrFail($id);
         // if the user is not the owner, throw 403
-<<<<<<< HEAD
-        if ($wall->user_id != Auth::user()->id) {
-=======
         if ($wall->user_id != Auth::id())
->>>>>>> dev
             abort(403);
-        }
+
         return view('wall.edit', ['wall' => $wall]);
     }
 
@@ -97,11 +93,7 @@ class WallController extends BaseController
     protected function destroy(int $id)
     {
         $wall = Wall::findOrFail($id);
-<<<<<<< HEAD
-        if (Auth::user()->id != $wall->user_id) {
-=======
-        if (Auth::id() != $wall->user_id)
->>>>>>> dev
+        if (Auth::id() != $wall->user_id) {
             abort(403);
         }
 
