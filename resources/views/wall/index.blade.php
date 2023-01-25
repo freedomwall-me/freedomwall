@@ -37,10 +37,12 @@
                                     <a href="{{ route('wall.show', $wall->id) }}" class="no-decor">
                                         <h4 class="card-title">{{ $wall->title }}</h4>
                                     </a>
-                                    <!-- check if the user is the owner of the wall -->
-                                    @if (Auth::user()->id == $wall->user_id)
-                                        @include('templates.actions')
-                                    @endif
+                                    @auth
+                                        <!-- check if the user is the owner of the wall -->
+                                        @if (Auth::id() == $wall->user_id)
+                                            @include('templates.actions')
+                                        @endif
+                                    @endauth
                                 </div>
                                 <a href="{{ route('wall.show', $wall->id) }}" class="no-decor">
                                     <!-- tags -->
@@ -48,8 +50,8 @@
                                         <div class="card-subtitle mb-2">
                                             @foreach (json_decode($wall->tags, true) as $obj)
                                                 <span class="badge text-bg-secondary">
-                                            {{ $obj['value'] }}
-                                        </span>
+                                                    {{ $obj['value'] }}
+                                                </span>
                                             @endforeach
                                         </div>
                                     @endif

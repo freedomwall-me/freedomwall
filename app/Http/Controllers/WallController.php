@@ -32,7 +32,7 @@ class WallController extends BaseController
     {
         $wall = Wall::findOrFail($id);
         // if the wall is draft and the user is not the owner, throw 403
-        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::user()->id)
+        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id())
             abort(403);
         return view('wall.show', ['wall' => $wall]);
     }
@@ -47,7 +47,7 @@ class WallController extends BaseController
         $valid = $request->validated();
 
         $wall = new Wall();
-        $wall->user_id = Auth::user()->id;
+        $wall->user_id = Auth::id();
         $wall->title = $valid['title'];
         $wall->tags = $valid['tags'];
         $wall->body = bzcompress($valid['body']);
@@ -64,7 +64,7 @@ class WallController extends BaseController
     {
         $wall = Wall::findOrFail($id);
         // if the user is not the owner, throw 403
-        if ($wall->user_id != Auth::user()->id)
+        if ($wall->user_id != Auth::id())
             abort(403);
         return view('wall.edit', ['wall' => $wall]);
     }
@@ -89,10 +89,15 @@ class WallController extends BaseController
     protected function destroy(int $id)
     {
         $wall = Wall::findOrFail($id);
-        if (Auth::user()->id != $wall->user_id)
+        if (Auth::id() != $wall->user_id)
             abort(403);
 
         $wall->delete();
-        return redirect()->route('wall.index');
+        // if current page is the wall page, redirect to wall index
+        // else redirect back
+        if (url()->previous() == route('wall.show', ['wall' => $id]))
+            return redirect()->route('wall.index');
+        else
+            return redirect()->back();
     }
 }

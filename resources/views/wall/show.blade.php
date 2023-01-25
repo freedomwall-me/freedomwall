@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between">
             <h1>{{ $wall->title }}</h1>
             <!-- check if the user is the owner of the wall -->
-            @if (Auth::user()->id == $wall->user_id)
+            @if (Auth::id() == $wall->user_id)
                 @include('templates.actions')
             @endif
         </div>
