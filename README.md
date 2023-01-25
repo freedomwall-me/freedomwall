@@ -8,5 +8,5 @@ The `freedomwall` is a simple, open-source, self-hosted, markdown based, anonymo
 
 ## Acknowledgements
 
-- [Ionaru/easy-markdown-editor](https://github.com/Ionaru/easy-markdown-editor)
-- [Graham-Campbell/Laravel-Markdown](https://github.com/Graham-Campbell/Laravel-Markdown)
+-   [Ionaru/easy-markdown-editor](https://github.com/Ionaru/easy-markdown-editor)
+-   [Graham-Campbell/Laravel-Markdown](https://github.com/Graham-Campbell/Laravel-Markdown)
