@@ -1,0 +1,48 @@
+name: Laravel
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    laravel-tests:
+
+        runs-on: ubuntu-latest
+
+        steps:
+          - uses: shivammathur/setup-php@v2
+            with:
+                php-version: '7.4.33'
+          - uses: actions/checkout@v3
+          - name: Install Dependencies
+            run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          - name: Directory Permissions
+            run: chmod -R 777 storage bootstrap/cache
+          - name: Create Database
+            run: |
+                mkdir -p database
+                touch database/database.sqlite
+          - name: Execute tests (Unit and Feature tests) via PHPUnit
+            env:
+                DB_CONNECTION: sqlite
+                DB_DATABASE: database/database.sqlite
+            run: vendor/bin/phpunit
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+                node-version: 14
+          - name: Compile Assets
+            run: |
+                npm install
+                npm run format
+                npm run prod
+          - name: Install SSH Key
+            uses: shimataro/ssh-key-action@v2
+            with:
+                key: ${{ secrets.PROD_PRIVATE_KEY }}
+                known_hosts: ${{ secrets.PROD_KNOWN_HOSTS }}
+                if_key_exists: fail
+          - name: Pull
+            run: rsync -avz --exclude=node_modules ${GITHUB_WORKSPACE%/}/ client@freedomwall.me:prod
