@@ -8,6 +8,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
+          - name: Install rsync
+            run: apt-get install rsync -y
           - name: Install SSH Key
             uses: shimataro/ssh-key-action@v2
             with:
