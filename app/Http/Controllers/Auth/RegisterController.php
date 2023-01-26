@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +46,33 @@ class RegisterController extends BaseController
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param Request $request
+     * @return RedirectResponse | JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user))
+            return $response;
+
+        $redir = redirect()
+            ->route('home')
+            ->with('success', 'Registration successful! Please check your email to verify your account.');
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : $redir;
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param array $data
@@ -61,15 +91,13 @@ class RegisterController extends BaseController
      *
      *
      * @param array $request
-     * @return User
+     * @return RedirectResponse
      */
     protected function create(array $request)
     {
-        $user = User::create([
+        return User::create([
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        event(new Registered($user));
-        return $user;
     }
 }

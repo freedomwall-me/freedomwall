@@ -5,34 +5,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 @endsection
 
+@section('additional-success')
+    @if (session()->has('wall_id'))
+        <a href="{{ route('wall.show', session()->get('wall_id')) }}">
+            <strong>View Wall</strong>
+        </a>
+    @endif
+@endsection
+
 @section('content')
     <h1 class="mb-4">{{ __("Edit Wall #$wall->id") }}</h1>
-    @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-            @if (session()->has('wall_id'))
-                <a href="{{ route('wall.show', session()->get('wall_id')) }}">
-                    <strong>View Wall</strong>
-                </a>
-            @endif
-        </div>
-    @endif
     <form method="POST" action="{{ route('wall.update', $wall->id) }}">
         @csrf
         @method('PUT')
-        <label for="title">{{ __('Title') }}</label>
+        <label for="title">Title</label>
         <input type="text" name="title" class="form-control form-control-lg mb-2 @error('title') is-invalid @enderror"
-            placeholder="{{ __('Think of a good title...') }}" value="{{ $wall->title }}">
+            placeholder="Think of a good title..." value="{{ $wall->title }}">
         @error('title')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
         @enderror
-        <label for="tags">{{ __('Tags') }}</label>
+        <label for="tags">Tags</label>
         <input type="text" name="tags" class="form-control form-control-sm mt-1 mb-2" data-role="tagsinput"
             value="{{ $wall->tags }}">
 
-        <label for="body">{{ __('Body') }}</label>
+        <label for="body">Body</label>
         <textarea id="body" name="body" class="form-control @error('body') is-invalid @enderror">{{ bzdecompress($wall->body) }}</textarea>
         @error('body')
             <div class="invalid-feedback">
@@ -41,10 +39,10 @@
         @enderror
         <div class="mt-3">
             <button type="submit" class="btn btn-primary btn-lg" name="publish_status" value="published">
-                {{ __('Publish') }}
+                Publish
             </button>
             <button type="submit" class="btn btn-outline-primary btn-lg" name="publish_status" value="draft">
-                {{ __('Save as Draft') }}
+                Save as Draft
             </button>
         </div>
     </form>

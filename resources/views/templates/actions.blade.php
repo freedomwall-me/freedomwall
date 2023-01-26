@@ -9,11 +9,11 @@
         </svg>
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item no-decor" href="{{ route('wall.edit', $wall->id) }}">{{ __('Edit') }}</a>
+        <a class="dropdown-item no-decor" href="{{ route('wall.edit', $wall->id) }}">Edit</a>
         @if ($wall->publish_status == 'draft')
             <a class="dropdown-item no-decor link-success" href="{{ route('wall.update', $wall->id) }}"
                 onclick="event.preventDefault(); document.getElementById('publish-form').submit();">
-                {{ __('Publish') }}
+                Publish
             </a>
             <form id="publish-form" action="{{ route('wall.update', $wall->id) }}" method="POST"
                 style="display: none;">
@@ -24,7 +24,7 @@
         @else
             <a class="dropdown-item no-decor link-warning" href="{{ route('wall.update', $wall->id) }}"
                 onclick="event.preventDefault(); document.getElementById('unpublish-form').submit();">
-                {{ __('Unpublish') }}
+                Unpublish
             </a>
             <form id="unpublish-form" action="{{ route('wall.update', $wall->id) }}" method="POST"
                 style="display: none;">
@@ -38,7 +38,7 @@
                         event.preventDefault();
                         document.getElementById('delete-form').submit();
                     }">
-            {{ __('Delete') }}
+            Delete
         </a>
         <form id="delete-form" action="{{ route('wall.destroy', $wall->id) }}" method="POST" style="display: none;">
             @csrf

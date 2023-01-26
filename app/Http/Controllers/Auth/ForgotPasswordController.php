@@ -19,4 +19,18 @@ class ForgotPasswordController extends BaseController
     */
 
     use SendsPasswordResetEmails;
+
+    // override the sendResetLinkEmail method
+    public function sendResetLinkEmail(\Illuminate\Http\Request $request)
+    {
+        $this->validateEmail($request);
+
+        $response = $this->broker()->sendResetLink(
+            $this->credentials($request)
+        );
+
+        return $response == \Password::RESET_LINK_SENT
+                    ? back()->with('success', 'A password reset link has been sent to your email address.')
+                    : back()->with('error', 'Failed to send password reset link.');
+    }
 }

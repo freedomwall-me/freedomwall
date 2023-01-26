@@ -14,7 +14,7 @@
     <p class="lead">
         <sup>
             There's a catch, though. You can't use this platform for perpetuating cybercrimes, such as bullying. So, use
-            wisely ;)
+            wisely ;&lpar;
         </sup>
     </p>
 

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="mb-4">{{ __('Contact us') }}</h1>
+    <h1 class="mb-4">Contact us</h1>
 
     <p>
-        {{ __('Provide feedback by filling out the form below.') }}
+        Provide feedback by filling out the form below.
         <br>
-        {{ __('You can also contact us directly:') }} <a href="mailto:support@freedomwall.me">support@freedomwall.me</a>
+        You can also contact us directly: <a href="mailto:support@freedomwall.me">support@freedomwall.me</a>
     </p>
 
     <form method="POST" action="{{ route('email.store') }}">
@@ -17,7 +17,7 @@
             </div>
         @endif
         <div class="form-outline mb-3">
-            <label class="form-label" for="email">{{ __('Email') }}</label>
+            <label class="form-label" for="email">Email</label>
             <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
                 placeholder="name@example.com">
             @error('email')
@@ -27,7 +27,7 @@
             @enderror
         </div>
         <div class="form-outline mb-4">
-            <label class="form-label" for="body">{{ __('Content') }}</label>
+            <label class="form-label" for="body">Content</label>
             <textarea name="body" class="form-control @error('body') is-invalid @enderror" style="min-height: 10em;"></textarea>
             @error('body')
                 <div class="invalid-feedback">

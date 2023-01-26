@@ -11,7 +11,7 @@ $theme-colors: (
     "warning": #ffbc42,
     "info": #4ea8de,
     "light": #f9f9f9,
-    "dark": #131515,
+    "dark": #131515
 );
 
 // Typography
@@ -19,3 +19,5 @@ $font-family-sans-serif: "Lato", sans-serif;
 $font-family-monospace: "Inconsolata", monospace;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+$fa-font-path: "~font-awesome/fonts";

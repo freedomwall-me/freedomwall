@@ -3,8 +3,8 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-baseline">
-        <h1 class="mb-4">{{ __('My Walls') }}</h1>
-        <a href="{{ route('wall.create') }}" class="btn btn-primary">{{ __('Create') }}</a>
+        <h1 class="mb-4">My Walls</h1>
+        <a href="{{ route('wall.create') }}" class="btn btn-primary">Create</a>
     </div>
     @foreach ($walls as $wall)
         <div class="card mb-3">
@@ -19,7 +19,7 @@
                     <!-- tags -->
                     <div class="card-subtitle mb-2">
                         @if ($wall->publish_status == 'draft')
-                            <span class="badge text-bg-warning">{{ __('Draft') }}</span>
+                            <span class="badge text-bg-warning">Draft</span>
                         @endif
                         @if ($wall->tags != null)
                             @foreach (json_decode($wall->tags, true) as $obj)

@@ -26,7 +26,7 @@ class WallController extends BaseController
     protected function index()
     {
         // four each row, five rows ordered by updated_date from newest to oldest
-        $walls = Wall::orderBy('id', 'desc')->where('publish_status', 'published')->paginate(20);
+        $walls = Wall::orderBy('id', 'desc')->where('publish_status', 'published')->paginate(24);
         return view('wall.index', ['walls' => $walls]);
     }
 

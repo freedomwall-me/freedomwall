@@ -15,12 +15,12 @@
             <strong>
                 <small
                     class="text-muted">{{ __('This work is only visible to you. Publish it for other people to see this
-                                        work.') }}</small>
+                                                                                                    work.') }}</small>
             </strong>
         @endif
         <div>
             @if ($wall->publish_status == 'draft')
-                <span class="badge text-bg-warning">{{ __('Draft') }}</span>
+                <span class="badge text-bg-warning">Draft</span>
             @endif
             @if ($wall->tags != null)
                 @foreach (json_decode($wall->tags, true) as $obj)
@@ -35,8 +35,4 @@
             @markdown($decomp)
         </div>
     </div>
-@endsection
-
-@section('dload')
-    <script src="{{ asset('js/hljs.js') }}"></script>
 @endsection
