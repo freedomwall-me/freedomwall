@@ -1,0 +1,18 @@
+name: Push to Production
+on:
+    push:
+        branches:
+          - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Install SSH Key
+            uses: shimataro/ssh-key-action@v2
+            with:
+                key: ${{ secrets.PROD_PRIVATE_KEY }}
+                known_hosts: ${{ secrets.PROD_KNOWN_HOSTS }}
+                if_key_exists: fail
+          - name: Pull
+            run: rsync -r ${{ GITHUB_WORKSPACE }} client@freedomwall.me:prod/
