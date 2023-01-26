@@ -16,4 +16,4 @@ jobs:
                 known_hosts: ${{ secrets.PROD_KNOWN_HOSTS }}
                 if_key_exists: fail
           - name: Pull
-            run: /usr/bin/rsync -r $GITHUB_WORKSPACE client@freedomwall.me:prod
+            run: rsync -avz ${GITHUB_WORKSPACE%/}/ client@freedomwall.me:prod
