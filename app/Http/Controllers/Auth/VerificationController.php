@@ -43,8 +43,9 @@ class VerificationController extends BaseController
     // override the resend method
     public function resend(\Illuminate\Http\Request $request)
     {
-        if ($request->user()->hasVerifiedEmail())
+        if ($request->user()->hasVerifiedEmail()) {
             return redirect($this->redirectPath());
+        }
 
         $request->user()->sendEmailVerificationNotification();
 

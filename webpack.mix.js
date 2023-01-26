@@ -1,4 +1,4 @@
-const mix = require("laravel-mix")
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,10 +12,10 @@ const mix = require("laravel-mix")
  */
 
 // jquery and js-cookie
-mix.js("resources/js/app.js", "public/js")
-    .copy("node_modules/jquery/dist/jquery.min.js", "public/js")
-    .copy("node_modules/js-cookie/dist/js.cookie.min.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css")
-    .postCss("resources/css/app.css", "public/css")
-    // enable source maps only when not in production
-    .sourceMaps(!mix.inProduction(), "source-map")
+mix.js('resources/js/app.js', 'public/js')
+  .copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
+  .copy('node_modules/js-cookie/dist/js.cookie.min.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
+  .postCss('resources/css/app.css', 'public/css')
+// enable source maps only when not in production
+  .sourceMaps(!mix.inProduction(), 'source-map')

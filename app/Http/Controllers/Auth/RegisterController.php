@@ -60,8 +60,9 @@ class RegisterController extends BaseController
         event(new Registered($user));
         $this->guard()->login($user);
 
-        if ($response = $this->registered($request, $user))
+        if ($response = $this->registered($request, $user)) {
             return $response;
+        }
 
         $redir = redirect()
             ->route('home')
