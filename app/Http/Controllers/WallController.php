@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\HttpResponse;
 use App\Http\Requests\StoreWallRequest;
 use App\Http\Requests\UpdateWallRequest;
+use App\Http\Resources\WallResource;
 use App\Models\Wall;
 use Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class WallController extends BaseController
@@ -16,6 +19,7 @@ class WallController extends BaseController
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
+    use HttpResponse;
 
     public function __construct()
     {
@@ -23,22 +27,44 @@ class WallController extends BaseController
         $this->middleware('verified', ['except' => ['index', 'show']]);
     }
 
-    protected function index()
+    protected function index(/* $user = null, $paginate = null, $page = null */ Request $request)
     {
-        // four each row, five rows ordered by updated_date from newest to oldest
-        $walls = Wall::orderBy('id', 'desc')->where('publish_status', 'published')->paginate(24);
-        return view('wall.index', ['walls' => $walls]);
-    }
+        $user = $request->query('user');
+        $paginate = $request->query('paginate');
+        $page = $request->query('page');
 
-    protected function show(int $id)
-    {
-        $wall = Wall::findOrFail($id);
-        // if the wall is draft and the user is not the owner, throw 403
-        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id()) {
-            abort(403);
+        $query = Wall::query();
+        if ($user) {
+            // if the user is not the owner, throw 403
+            if ($user != Auth::id()) {
+                return $this->error('Unauthorized', 403);
+            }
+
+            $query->where('user_id', $user);
+        } else {
+            $query->where('publish_status', 'published'); // if user not specified, only show published posts
         }
 
-        return view('wall.show', ['wall' => $wall]);
+        $query->orderBy('id', 'desc');
+        if ($paginate) {
+            $query->paginate($paginate, ['*'], 'page', $page);
+        } else {
+            $query->get();
+        }
+
+        return [
+            'walls' => WallResource::collection($query->get())
+        ];
+    }
+
+    protected function show(Wall $wall)
+    {
+        // if the wall is draft and the user is not the owner, throw 403
+        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id()) {
+            return $this->error('Unauthorized', 403);
+        }
+
+        return $this->success(new WallResource($wall));
     }
 
     protected function create()
@@ -48,25 +74,21 @@ class WallController extends BaseController
 
     protected function store(StoreWallRequest $request)
     {
-        $valid = $request->validated();
+        $request->validated();
 
         $wall = new Wall();
         $wall->user_id = Auth::id();
-        $wall->title = $valid['title'];
-        $wall->tags = $valid['tags'];
-        $wall->body = bzcompress($valid['body']);
-        $wall->publish_status = $valid['publish_status'];
+        $wall->title = $request->title;
+        $wall->tags = $request->tags;
+        $wall->body = bzcompress($request->body);
+        $wall->publish_status = $request->publish_status;
         $wall->save();
 
-        return redirect()
-                ->back()
-                ->with('success', 'Wall created successfully!')
-                ->with('wall_id', $wall->id);
+        return $this->success(new WallResource($wall));
     }
 
-    protected function edit(int $id)
+    protected function edit(Wall $wall)
     {
-        $wall = Wall::findOrFail($id);
         // if the user is not the owner, throw 403
         if ($wall->user_id != Auth::id()) {
             abort(403);
@@ -75,37 +97,27 @@ class WallController extends BaseController
         return view('wall.edit', ['wall' => $wall]);
     }
 
-    protected function update(UpdateWallRequest $request, int $id)
+    protected function update(UpdateWallRequest $request, Wall $wall)
     {
-        $valid = $request->validated();
+        $request->validated();
 
-        $wall = Wall::findOrFail($id);
-        $wall->title = $valid['title'] ?? $wall->title;
-        $wall->tags = $valid['tags'] ?? $wall->tags;
-        $wall->body = isset($valid['body']) ? bzcompress($valid['body']) : $wall->body; // if body is not set
-        $wall->publish_status = $valid['publish_status'] ?? $wall->publish_status;
+        $wall->title = $request->title ?? $wall->title;
+        $wall->tags = $request->tags ?? $wall->tags;
+        $wall->body = $request->body ? bzcompress($request->body) : $wall->body; // if body is not set
+        $wall->publish_status = $request->publish_status ?? $wall->publish_status;
         $wall->save();
 
-        return redirect()
-                ->back()
-                ->with('success', 'Wall updated successfully!')
-                ->with('wall_id', $wall->id);
+        return $this->success(new WallResource($wall));
     }
 
-    protected function destroy(int $id)
+    protected function destroy(Wall $wall)
     {
-        $wall = Wall::findOrFail($id);
         if (Auth::id() != $wall->user_id) {
-            abort(403);
+            return $this->error('Unauthorized', 403);
         }
 
         $wall->delete();
-        // if current page is the wall page, redirect to wall index
-        // else redirect back
-        if (url()->previous() == route('wall.show', ['wall' => $id])) {
-            return redirect()->route('wall.index');
-        } else {
-            return redirect()->back();
-        }
+
+        return $this->success('Wall deleted successfully');
     }
 }

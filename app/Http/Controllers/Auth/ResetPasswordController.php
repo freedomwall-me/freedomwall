@@ -20,23 +20,4 @@ class ResetPasswordController extends BaseController
     */
 
     use ResetsPasswords;
-
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    // override the sendResetResponse method
-    protected function sendResetResponse(\Illuminate\Http\Request $request, $response)
-    {
-        return back()->with('success', 'Your password has been reset.');
-    }
-
-    // override the sendResetFailedResponse method
-    protected function sendResetFailedResponse(\Illuminate\Http\Request $request, $response)
-    {
-        return back()->with('error', 'Password reset failed.');
-    }
 }

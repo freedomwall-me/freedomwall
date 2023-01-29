@@ -22,20 +22,13 @@ class VerificationController extends BaseController
     use VerifiesEmails;
 
     /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:sanctum');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -48,6 +41,8 @@ class VerificationController extends BaseController
 
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('success', 'A fresh verification link has been sent to your email address.');
+        return response()->json([
+            'message' => 'Verification link sent to the email address'
+        ]);
     }
 }

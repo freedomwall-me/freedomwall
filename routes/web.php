@@ -24,16 +24,4 @@ Route::get('/profile', [IndexController::class, 'profile'])->name('profile')->mi
 
 Route::resource('/wall', WallController::class);
 
-Route::post('/mail-subsystem', [EmailController::class, 'store'])->name('email.store');
-
-Route::get('/email/verify', [VerificationController::class, 'show'])
-    ->middleware('auth')
-    ->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
-Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
-    ->middleware(['auth', 'throttle:6,1'])
-    ->name('verification.resend');
-
 Auth::routes(['verify' => true]);
