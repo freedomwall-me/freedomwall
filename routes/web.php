@@ -16,8 +16,3 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [IndexController::class, 'home'])->name('home');
-Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
-Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
-Route::get('/profile', [IndexController::class, 'profile'])->name('profile')->middleware('verified');
