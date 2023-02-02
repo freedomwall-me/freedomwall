@@ -21,7 +21,3 @@ Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
 Route::get('/profile', [IndexController::class, 'profile'])->name('profile')->middleware('verified');
-
-Route::resource('/wall', WallController::class);
-
-Auth::routes(['verify' => true]);
