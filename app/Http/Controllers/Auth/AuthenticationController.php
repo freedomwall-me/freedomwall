@@ -8,9 +8,17 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controller as BaseController;
 
-class AuthenticationController
+class AuthenticationController extends BaseController
 {
+    use HttpResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum', ['only' => ['logout']]);
+    }
+
     public function login(LoginUserRequest $request)
     {
         $request->validated();
