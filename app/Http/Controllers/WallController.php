@@ -47,14 +47,14 @@ class WallController extends BaseController
 
         $query->orderBy('id', 'desc');
         if ($paginate) {
-            $query->paginate($paginate, ['*'], 'page', $page);
+            $np = $query->paginate($paginate, ['*'], 'page', $page);
         } else {
-            $query->get();
+            $np = $query->get();
         }
 
-        return [
-            'walls' => WallResource::collection($query->get())
-        ];
+        return $this->success([
+            'walls' => WallResource::collection($np)
+        ]);
     }
 
     protected function show(Wall $wall)
