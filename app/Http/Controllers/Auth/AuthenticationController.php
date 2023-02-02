@@ -39,9 +39,9 @@ class AuthenticationController extends BaseController
 
     public function logout()
     {
-        Auth::user()->currentAccessToken()->delete();
+        auth('sanctum')->user()->tokens()->delete();
 
-        return HttpResponse::success('Logged out successfully');
+        return $this->success(null, 'Logged out successfully');
     }
 
     public function register(StoreUserRequest $request)

@@ -23,7 +23,7 @@ class WallController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth:sanctum', ['except' => ['index', 'show']]);
         $this->middleware('verified', ['except' => ['index', 'show']]);
     }
 
@@ -36,7 +36,7 @@ class WallController extends BaseController
         $query = Wall::query();
         if ($user) {
             // if the user is not the owner, throw 403
-            if ($user != Auth::id()) {
+            if ($user != auth('sanctum')->id()) {
                 return $this->error('Unauthorized', 403);
             }
 
@@ -60,7 +60,7 @@ class WallController extends BaseController
     protected function show(Wall $wall)
     {
         // if the wall is draft and the user is not the owner, throw 403
-        if ($wall->publish_status == 'draft' && $wall->user_id != Auth::id()) {
+        if ($wall->publish_status == 'draft' && $wall->user_id != auth('sanctum')->id()) {
             return $this->error('Unauthorized', 403);
         }
 
@@ -90,7 +90,7 @@ class WallController extends BaseController
     protected function edit(Wall $wall)
     {
         // if the user is not the owner, throw 403
-        if ($wall->user_id != Auth::id()) {
+        if ($wall->user_id != auth('sanctum')->id()) {
             abort(403);
         }
 
@@ -112,7 +112,7 @@ class WallController extends BaseController
 
     protected function destroy(Wall $wall)
     {
-        if (Auth::id() != $wall->user_id) {
+        if (auth('sanctum')->id() != $wall->user_id) {
             return $this->error('Unauthorized', 403);
         }
 
