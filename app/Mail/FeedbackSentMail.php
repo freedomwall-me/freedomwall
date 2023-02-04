@@ -31,6 +31,6 @@ class FeedbackSentMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.feedbacksent', $this->data);
+        return $this->view("emails.feedbacksent", $this->data);
     }
 }

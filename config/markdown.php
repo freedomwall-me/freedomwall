@@ -12,7 +12,6 @@ declare(strict_types=1);
  */
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Enable View Integration
@@ -27,7 +26,7 @@ return [
     |
     */
 
-    'views' => true,
+    "views" => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +43,7 @@ return [
     |
     */
 
-    'extensions' => [
+    "extensions" => [
         League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
         League\CommonMark\Extension\Table\TableExtension::class,
     ],
@@ -64,8 +63,7 @@ return [
     |
     */
 
-    'renderer' => [
-    ],
+    "renderer" => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -84,12 +82,12 @@ return [
     |
     */
 
-    'commonmark' => [
-        'enable_em'              => true,
-        'enable_strong'          => true,
-        'use_asterisk'           => true,
-        'use_underscore'         => true,
-        'unordered_list_markers' => ['-', '+', '*'],
+    "commonmark" => [
+        "enable_em" => true,
+        "enable_strong" => true,
+        "use_asterisk" => true,
+        "use_underscore" => true,
+        "unordered_list_markers" => ["-", "+", "*"],
     ],
 
     /*
@@ -103,7 +101,7 @@ return [
     |
     */
 
-    'html_input' => 'strip',
+    "html_input" => "strip",
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +114,7 @@ return [
     |
     */
 
-    'allow_unsafe_links' => true,
+    "allow_unsafe_links" => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -129,7 +127,7 @@ return [
     |
     */
 
-    'max_nesting_level' => PHP_INT_MAX,
+    "max_nesting_level" => PHP_INT_MAX,
 
     /*
     |--------------------------------------------------------------------------
@@ -145,9 +143,8 @@ return [
     |
     */
 
-    'slug_normalizer' => [
-        'max_length' => 255,
-        'unique'     => 'document',
+    "slug_normalizer" => [
+        "max_length" => 255,
+        "unique" => "document",
     ],
-
 ];

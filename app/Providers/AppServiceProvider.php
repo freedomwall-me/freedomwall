@@ -30,19 +30,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // use different verify email route
-        VerifyEmail::createUrlUsing(
-            function ($notifiable) {
-                $verifyRoute = URL::temporarySignedRoute('auth.verify',
-                    Carbon::now()->addMinutes(Config::get('auth.verification.expire', 30)),
-                    [
-                        'id' => $notifiable->getKey(),
-                        'hash' => sha1($notifiable->getEmailForVerification()),
-                    ]);
+        VerifyEmail::createUrlUsing(function ($notifiable) {
+            $verifyRoute = URL::temporarySignedRoute(
+                "auth.verify",
+                Carbon::now()->addMinutes(
+                    Config::get("auth.verification.expire", 30)
+                ),
+                [
+                    "id" => $notifiable->getKey(),
+                    "hash" => sha1($notifiable->getEmailForVerification()),
+                ]
+            );
 
-                $base = str_replace(url('/api'), url('/'), $verifyRoute);
+            $base = str_replace(url("/api"), url("/"), $verifyRoute);
 
-                return Config::get('app.frontend') . '/auth/verify/' . urlencode($base);
-            }
-        );
+            return Config::get("app.frontend") .
+                "/auth/verify/" .
+                urlencode($base);
+        });
     }
 }

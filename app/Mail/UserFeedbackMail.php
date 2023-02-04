@@ -33,6 +33,8 @@ class UserFeedbackMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.userfeedback', $this->data)->replyTo($this->data['email']);
+        return $this->view("emails.userfeedback", $this->data)->replyTo(
+            $this->data["email"]
+        );
     }
 }
