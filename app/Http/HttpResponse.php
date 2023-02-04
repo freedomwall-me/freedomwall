@@ -4,24 +4,24 @@ namespace App\Http;
 
 trait HttpResponse
 {
-    public function success($data = null, $message = null, $code = 200)
+    public function success($message = null, $data = null, $code = 200)
     {
         return response()->json(
             [
-                "success" => true,
-                "data" => $data,
                 "message" => $message,
+                "errors" => false,
+                "data" => $data,
             ],
             $code
         );
     }
 
-    public function error($message, $code)
+    public function error($message, $errors, $code)
     {
         return response()->json(
             [
-                "success" => false,
                 "message" => $message,
+                "errors" => $errors,
             ],
             $code
         );

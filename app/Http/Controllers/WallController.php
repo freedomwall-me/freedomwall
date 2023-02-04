@@ -37,7 +37,7 @@ class WallController extends BaseController
         if ($user) {
             // if the user is not the owner, throw 403
             if ($user != auth('sanctum')->id()) {
-                return $this->error('Unauthorized', 403);
+                return $this->error('Unauthorized.', [], 403);
             }
 
             $query->where('user_id', $user);
@@ -52,7 +52,7 @@ class WallController extends BaseController
             $np = $query->get();
         }
 
-        return $this->success([
+        return $this->success('Retrieved wall collection successfully.', [
             'walls' => WallResource::collection($np)
         ]);
     }
@@ -61,15 +61,10 @@ class WallController extends BaseController
     {
         // if the wall is draft and the user is not the owner, throw 403
         if ($wall->publish_status == 'draft' && $wall->user_id != auth('sanctum')->id()) {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Unauthorized.', [], 403);
         }
 
-        return $this->success(new WallResource($wall));
-    }
-
-    protected function create()
-    {
-        return view('wall.create');
+        return $this->success('Retrieved wall successfully.', new WallResource($wall));
     }
 
     protected function store(StoreWallRequest $request)
@@ -84,17 +79,7 @@ class WallController extends BaseController
         $wall->publish_status = $request->publish_status;
         $wall->save();
 
-        return $this->success(new WallResource($wall));
-    }
-
-    protected function edit(Wall $wall)
-    {
-        // if the user is not the owner, throw 403
-        if ($wall->user_id != auth('sanctum')->id()) {
-            abort(403);
-        }
-
-        return view('wall.edit', ['wall' => $wall]);
+        return $this->success('Created wall successfully.', new WallResource($wall));
     }
 
     protected function update(UpdateWallRequest $request, Wall $wall)
@@ -113,11 +98,11 @@ class WallController extends BaseController
     protected function destroy(Wall $wall)
     {
         if (auth('sanctum')->id() != $wall->user_id) {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Unauthorized.', [], 403);
         }
 
         $wall->delete();
 
-        return $this->success('Wall deleted successfully');
+        return $this->success('Wall deleted successfully.');
     }
 }

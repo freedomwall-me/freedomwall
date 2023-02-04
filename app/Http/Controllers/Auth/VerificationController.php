@@ -32,36 +32,46 @@ class VerificationController extends BaseController
      */
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->middleware("auth:sanctum");
+        $this->middleware("signed")->only("verify");
+        $this->middleware("throttle:6,1")->only("verify", "resend");
     }
 
     // override the resend method
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return $this->error('Email already verified', 422);
+            return $this->error("Email already verified.", [], 422);
         }
 
         $request->user()->sendEmailVerificationNotification();
 
-        return $this->success(null, 'Verification link sent to your email');
+        return $this->success("Verification link sent successfully.");
     }
 
     // override the verify method
     public function verify(Request $request)
     {
-        if (!hash_equals((string)$request->route('id'), (string)$request->user()->getKey())) {
-            return $this->error('Unauthorized verification of email', 401);
+        if (
+            !hash_equals(
+                (string) $request->route("id"),
+                (string) $request->user()->getKey()
+            )
+        ) {
+            return $this->error("Unauthorized email verification.", [], 401);
         }
 
-        if (!hash_equals((string)$request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
-            return $this->error('Signature does not match', 401);
+        if (
+            !hash_equals(
+                (string) $request->route("hash"),
+                sha1($request->user()->getEmailForVerification())
+            )
+        ) {
+            return $this->error("Signature does not match.", [], 401);
         }
 
         if ($request->user()->hasVerifiedEmail()) {
-            return $this->success(null, 'Email already verified', 204);
+            return $this->error("Email already verified.", [], 422);
         }
 
         if ($request->user()->markEmailAsVerified()) {
@@ -72,6 +82,6 @@ class VerificationController extends BaseController
             return $response;
         }
 
-        return $this->success(null, 'Email verified successfully');
+        return $this->success("Email verified successfully.");
     }
 }
