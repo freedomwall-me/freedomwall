@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\HttpResponse;
 use App\Mail\FeedbackSentMail;
 use App\Mail\UserFeedbackMail;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 
 class EmailController extends BaseController
 {
+    use HttpResponse;
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -19,6 +22,9 @@ class EmailController extends BaseController
         \Mail::to(config('mail.support'))->send(new UserFeedbackMail($data));
         \Mail::to($data['email'])->send(new FeedbackSentMail($data));
 
-        return redirect()->route('contact')->with('success', 'Your feedback has been sent!');
+        return $this->success('Feedback sent successfully.', [
+            'email' => $data['email'],
+            'body' => $data['body'],
+        ]);
     }
 }
