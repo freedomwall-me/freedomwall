@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\HttpResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
@@ -19,6 +20,7 @@ class ForgotPasswordController extends BaseController
     */
 
     use SendsPasswordResetEmails;
+    use HttpResponse;
 
     // override the sendResetLinkEmail method
     public function sendResetLinkEmail(\Illuminate\Http\Request $request)
@@ -30,7 +32,7 @@ class ForgotPasswordController extends BaseController
         );
 
         return $response == \Password::RESET_LINK_SENT
-                    ? back()->with('success', 'A password reset link has been sent to your email address.')
-                    : back()->with('error', 'Failed to send password reset link.');
+                    ? $this->success('Password reset link sent successfully.')
+                    : $this->error('Failed to send password reset link.', [], 400);
     }
 }
